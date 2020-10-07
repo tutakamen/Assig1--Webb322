@@ -6,11 +6,14 @@ body{
 }
  
 h1 {
-    font-size:10px;
+    font-size: 10px;
+    color: slateblue;
+    background-color: chartreuse;
+    text-align: center;
 }
  
 h3 {
-    font-size:22px;
+    font-size:220px;
     color: blueviolet;
     background-color: darkmagenta;
 }
