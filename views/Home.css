@@ -6,10 +6,12 @@ body{
 }
  
 h1 {
+    font-family:cursive;
     font-size: 10px;
     color: slateblue;
     background-color: chartreuse;
     text-align: center;
+    
 }
  
 h3 {
