@@ -6,11 +6,12 @@ body{
 }
  
 h1 {
-    font-size:50px;
+    font-size:10px;
 }
  
 h3 {
-    font-size:22px;
+    font-size:220px;
+    color: blueviolet;
 }
  
 #content-wrapper {
@@ -47,3 +48,5 @@ h3 {
     padding: 15px;
     clear:both;
 }
+
+p
