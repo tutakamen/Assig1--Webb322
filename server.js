@@ -13,7 +13,7 @@ function onHttpStart() {
   // setup a 'route' to listen on the default url path (http://localhost)
   app.get("/", function(req,res){
 
-    res.sendFile(path.join(__dirname,"/views/.html"));
+    res.sendFile(path.join(__dirname,"/views/Home.html"));
 
     //res.send("Hello home<br /><a href='/Home'>Go to the home page</a><br /><a href='/Listings'>Go to the list page</a><br /><a href='/Registration'>Go to the Registration page</a>");
     //   res.send("Hello Listings<br /><a href='/Listings'>Go to the list page</a>");
