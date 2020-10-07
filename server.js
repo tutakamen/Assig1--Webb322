@@ -12,8 +12,8 @@ function onHttpStart() {
   // setup a 'route' to listen on the default url path (http://localhost)
   app.get("/", function(req,res){
       res.send("Hello home<br /><a href='/Home'>Go to the home page</a>");
-      res.send("Hello Listings<br /><a href='/Listings'>Go to the home page</a>");
-      res.send("Hello Registrations<br /><a href='/Registration'>Go to the home page</a>");
+      res.send("Hello Listings<br /><a href='/Listings'>Go to the list page</a>");
+      res.send("Hello Registrations<br /><a href='/Registration'>Go to the Registration page</a>");
 
   });
   
@@ -22,11 +22,11 @@ function onHttpStart() {
       res.sendFile(path.join(__dirname,"/views/Home.html"));
   });
   
-  app.get("/Home", function(req,res){
+  app.get("/Listings", function(req,res){
     res.sendFile(path.join(__dirname,"/views/Listings.html"));
 });
 
-app.get("/Home", function(req,res){
+app.get("/Registration", function(req,res){
     res.sendFile(path.join(__dirname,"/views/Registration.html"));
 });
 
