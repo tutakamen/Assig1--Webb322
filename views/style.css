@@ -290,3 +290,39 @@ hr {
     width: 100%;
   }
 }
+
+section,h1 {
+  padding: 0 1em;
+}
+
+.grid
+ {
+  display: grid;
+  grid-template-columns: repeat(3,300px);  /* 3 columns */
+  grid-template-rows: repeat(3,300px); /* 3 rows  */
+  grid-gap:100px 30px; /* 50 pixels of space added between rows and 30 pixels added between columns  */
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.grid-item{
+  border:thin gray solid;
+  padding:1px;
+  text-align: justify;
+  width: [width of img];
+  font-weight: bold;
+
+
+}
+img {
+  width: 100%;
+align-items: center;
+}
+
+p{
+  font-weight: 1000;
+  font-weight: bold; /* same as 700 */
+  font-weight: lighter; /* relative to the parent element */
+
+}
