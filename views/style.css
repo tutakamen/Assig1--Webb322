@@ -295,6 +295,7 @@ section,h1 {
   padding: 0 1em;
 }
 
+
 .grid
  {
   display: grid;
@@ -312,9 +313,8 @@ section,h1 {
   text-align: justify;
   width: [width of img];
   font-weight: bold;
-
-
 }
+
 img {
   width: 100%;
 align-items: center;

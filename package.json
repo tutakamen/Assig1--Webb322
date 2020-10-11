@@ -1,13 +1,13 @@
 {
-  "name": "assigmentt3",
+  "name": "assigmentt4",
   "version": "1.0.0",
-  "description": "Assigment1",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "Mustafa Bukhari",
+  "author": "Mustafa",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
