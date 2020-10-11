@@ -15,18 +15,10 @@ function onHttpStart() {
     res.sendFile(path.join(__dirname,"/views/Home.html"));
   });
   
-  // setup another route to listen on /about
-  app.get("/About", function(req,res){
-      res.sendFile(path.join(__dirname,"/views/About.html"));
-  });
-  
   app.get("/Listings", function(req,res){
     res.sendFile(path.join(__dirname,"/views/Listings.html"));
 });
 
-app.get("/Registration", function(req,res){
-    res.sendFile(path.join(__dirname,"/views/Registration.html"));
-});
 
 // setup http server to listen on HTTP_PORT
 app.listen(HTTP_PORT);

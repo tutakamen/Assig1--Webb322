@@ -2,30 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="myscripts.js"></script>
-    <link rel="stylesheet" type="text/css" href="/style.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="form.css" media="screen"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-    <h1>Home</h1>
-    <a href='/About'>Go Home</a>
-    <a href='/Listings'>Go to the list page</a>
-    <a href='/Registration'>Go to the Registration page</a>
-<h5>YHIADUBCNPIDONVPODVNPOVNP[ORJNP[O JNKNPK N NP IJIEFIEJFJSKDOJWNVUDWNC W OJWEMLK FJNEJN F  E  </5>
-  <a href="" class="click me">Submit</a>
-    <div class="bg-modal">
-        <div class="modal-content"></div>
-        <div class="close">+</div>
-        <img src="https://richardmiddleton.me/comic-100..." alt="">
-        <form action="">
-            <input type="text" placeholder="Nmae">
-            <input type="text" placeholder="E-mail">
-            <a href="" class="button">Submit</a>
-        </form>
+    <div class="topnav">
+    <nav>
+        <img src="Images/StayAnywhere Logo.jpg" alt="logo" class="logo">
+        <ul class="navigation">
+            <a href="/Listings"><button>See Listings</button></a>
+
+            <div class="popup" id="popup-1">
+                    <div class="overlay"></div>
+                    <div class="content">
+                    <div class="close-btn" onclick="togglePopup1()"  >&times;</div>
+                    <p id="d1"></p>
+                    <p id="d2"></p>
+                    <p id="d3"></p>
+                    <p id="d4"></p>
+                    </div>
+                </div>
+            <button onclick="togglePopup1()">About </button>
+
+            <div class="form-popup" id="myForm">
+                <form action="/action_page.php" class="form-container">
+                  <h1>Login</h1>
+              
+                  <label for="email"><b>Email</b></label>
+                  <input type="text" placeholder="Enter Email" name="email" required></input>
+              
+                  <label for="psw"><b>Password</b></label>
+                  <input type="password" placeholder="Enter Password" name="psw" required></input>
+              
+                  <button type="submit" class="btn">Login</button>
+                  <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
+                </form>
+              </div>
 
 
 
-    </div>
+        </ul>
+    
+    </nav>
+</div>
+
+
+
+<footer>
+ <p class="center"> StayAnywhere &copy; </p> 
+</footer>
+    <script src="myscripts.js"></script>
+    <script src="form.js"></script>
+
 </body>
+
 </html>
