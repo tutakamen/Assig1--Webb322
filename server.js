@@ -11,7 +11,7 @@ function onHttpStart() {
 
 app.use(express.static("views"));
   // setup a 'route' to listen on the default url path (http://localhost)
-  app.get("/Home", function(req,res){
+  app.get("/", function(req,res){
     res.sendFile(path.join(__dirname,"/views/Home.html"));
   });
   

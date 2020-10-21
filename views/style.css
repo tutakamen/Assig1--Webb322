@@ -326,3 +326,10 @@ p{
   font-weight: lighter; /* relative to the parent element */
 
 }
+
+
+body {
+  background-image: url("Images/pexels-oliver-sjöström-1433052.jpg" );
+  background-size:cover ; 
+  background-color: bisque;
+}
