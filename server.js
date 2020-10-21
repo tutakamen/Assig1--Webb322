@@ -16,6 +16,7 @@ filename: function(req,file,cb){
 }
 })
 
+
 const UPLOAD = multer({storage:STORAGE}); 
 
 
@@ -45,7 +46,7 @@ function onHttpStart() {
 
 //this should be the name tag on the photo upload input tag in form  
 app.post("/contact-form-process", UPLOAD.single("photo")),(req,res)=> {
-  const FORM_DATA = req.body ; = 
+  const FORM_DATA = req.body ; 
 
   const FORM_FILE =  req.file ;  
 
