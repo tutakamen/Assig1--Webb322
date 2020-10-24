@@ -1,19 +1,21 @@
-var express = require("express"); // now
+var express = require("express"); 
 var app = express();
 var path = require("path");
 var multer = require("multer");
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var HTTP_PORT = process.env.PORT || 8080;
 
 // create storage properties 
-const STORAGE = multer.diskStorage ({
-    destination: "./public/photos/",
-    filename: function(req,file,cb){
-      cb(null, Date.now() + path.extname(file.originalname)); 
-      }
-})  ;  
+const STORAGE = multer.diskStorage({
+  destination: "./public/photos/",
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
 
-const UPLOAD = multer({storage:STORAGE}); 
+const UPLOAD = multer({storage: STORAGE}); 
 
 // call this function after the http server starts listening for requests
 function onHttpStart() {
@@ -21,8 +23,7 @@ function onHttpStart() {
   }
   
 app.use(express.static("views"));
-app.use(express.static("public"));
-
+app.use(express.static("./public/"));///this may help !!!1
 
   // setup a 'route' to listen on the default url path 
   app.get("/", function(req,res){
@@ -53,12 +54,6 @@ app.post("/contact-form-process", UPLOAD.single("photo")),(req,res)=> {
 
     res.send(DATA_RECEIVED); 
 }
-
-
-
-
-
-
 
 // setup http server to listen on HTTP_PORT
 app.listen(HTTP_PORT, onHttpStart);
