@@ -15,7 +15,6 @@ const STORAGE = multer.diskStorage ({
 
 const UPLOAD = multer({storage:STORAGE}); 
 
-
 // call this function after the http server starts listening for requests
 function onHttpStart() {
     console.log("Express http server listening on: " + HTTP_PORT);
@@ -50,10 +49,15 @@ app.post("/contact-form-process", UPLOAD.single("photo")),(req,res)=> {
     "<br/><P>THIS WAS THE IMAGE UPLOADED :<BR/>" + 
     "<IMG SRC='/photos/"  + FORM_FILE.filename  +  "'/>"  +
     "<br/><br/>Welcome <strong>"  + FORM_DATA.fname + " " +  FORM_DATA.lname + "</strong>" + 
-    "to  the world of form processing."
+    "to the world of form processing."
 
     res.send(DATA_RECEIVED); 
 }
+
+
+
+
+
 
 
 // setup http server to listen on HTTP_PORT
