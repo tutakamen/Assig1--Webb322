@@ -1,14 +1,12 @@
+var express = require("express"); // now
+var app = express();
+var path = require("path");
+var multer = require("multer");
 
-////////////////////////////////////////////////////////////////////////xxxx///////////
-// var express = require("express"); // now
-// var app = express();
-// var path = require("path");
-// var multer = require("multer");
-
-// var HTTP_PORT = process.env.PORT || 8080;
+var HTTP_PORT = process.env.PORT || 8080;
 
 
-//create storage properties 
+// create storage properties 
 
 const STORAGE = multer.diskStorage({
 destination = "./public/photos/",
@@ -89,9 +87,6 @@ app.post("/contact-form-process", UPLOAD.single("photo")),(req,res)=> {
 //   }
 
 // }); 
-
-
-
 
 
 
