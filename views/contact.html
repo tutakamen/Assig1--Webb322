@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>StayAnywhere</title>
 </head>
 
@@ -21,7 +20,6 @@
             <button onclick="document.getElementById('id04').style.display='block'">Contact Us</button>
         </ul>
     </nav>
-</div>
 
 
 <div id="bg-modal" class="modal" >
@@ -118,17 +116,45 @@
 </div>
 
 
+<form action="/contact-form-process" method="POST" enctype="multipart/form-data">
+    <table  style="border: 1px solid #aaaaaa; padding:  6 px;">
+        <tr>
+            <td><label for="fname">First Name</label></td>
+            <td><input type="text" maxlength="20" size="20" placeholder="First Name" id="fname" name="fname"/></td>
+        </tr>
+        <tr>
+            <td><label for="lname">Last Name</label></td>
+            <td><input type="text" maxlength="20" size="20" placeholder="Last Name" id="lname" name="lname"/></td>
+        </tr>
+        <tr>
+            <td><label for="email">Email</label></td>
+            <td><input type="email" maxlength="75" size="40" placeholder="Email Address" id="email" name="email"/></td>
+        </tr>
+        <tr>
+            <td><label for="Gender">Gender</label></td>
+            <td>
+                <input type="radio" name="GenderM" id="GenderM" value="M">Male</label><br/>
+                <input type="radio" name="GenderF" id="GenderF" value="F">Female</label><br/>
+                <input type="radio" name="GenderO" id="GenderO" value="O">Other</label>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="photo">Photo Upload</label></td>
+            <td><input type="file" id="photo" name="photo"/></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
 
-<section>
-    <div class="grid">
-      <div class="grid-item"><img src="Images/pexels-binyamin-mellish-1396132.jpg" alt="cant see" class="logo" > <p>Quebec City-$200/night </p></div>
-      <div class="grid-item"><img src="Images/pexels-eberhard-grossgasteiger-730981.jpg" alt="cant see"  ><p>Edmonton -$220/night </p></div>
-      <div class="grid-item"><img src="Images/pexels-frans-van-heerden-632522.jpg" alt="cant see" >  <p>Vancouver -$320/night </p></div>
-      <div class="grid-item"><img src="Images/pexels-pixabay-314937.jpg" alt="cant see" ><p>Saskatoon -$300/night </p></div>
-      <div class="grid-item"><img src="Images/pexels-mike-463996.jpg" alt="cant see" ><p>Toronto -$130/night </p></div>
-      <div class="grid-item"><img src="Images/pexels-skitterphoto-794.jpg" alt="cant see" ><p>Halifax -$420/night </p></div>
-    </div>
-  </section>
+    </table>
+
+
+</form>
+
+
+
+
 
 
   <footer class="site-footer">
