@@ -2,7 +2,17 @@ var express = require("express");
 var app = express();
 var path = require("path");
 var multer = require("multer");
+var nodemailer = require("nodemailer");
+const { extname } = require("path");
 
+var transporter = nodemailer.createTransport({
+    service: 'gmail', 
+    auth: {
+      user: 'web322assigment2@gmail.com',
+      pass: 'Winter2020'
+    }
+  })
+  
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -55,6 +65,23 @@ app.post("/contact-form-process", UPLOAD.single("photo")),(req,res)=> {
 
     res.send(DATA_RECEIVED); 
 }
+
+var mailOptions =  {
+  from: 'web322assigment2@gmail.com',
+  to:FORM_DATA.email,
+  subject: 'Test email from NODE.js using nodemailer',
+  html: '<p>Hello' +  FORM_DATA.fname+ ":<p>Thank  you for contacting us</p>"
+
+}
+
+  transporter.sendMail(mailOptions,(error,info) =>{
+    if(error){
+    console.log("ERROR: "+ error);
+    }else{
+      console.log("SUCCESS: " +info.response ); 
+    }
+  
+  }); 
 
 // setup http server to listen on HTTP_PORT
 app.listen(HTTP_PORT, onHttpStart);
