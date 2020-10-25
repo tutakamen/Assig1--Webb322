@@ -3,22 +3,9 @@ var app = express();
 var path = require("path");
 var multer = require("multer");
 var nodemailer = require("nodemailer");
-const { extname } = require("path");
-
-var transporter = nodemailer.createTransport({
-    service: 'gmail', 
-    auth: {
-      user: 'web322assigment2@gmail.com',
-      pass: 'Winter2020'
-    }
-  })
-  
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
 
 var HTTP_PORT = process.env.PORT || 8080;
 
-// create storage properties 
 const STORAGE = multer.diskStorage({
   destination: "./public/photos/",
   filename: function (req, file, cb) {
@@ -28,13 +15,21 @@ const STORAGE = multer.diskStorage({
 
 const UPLOAD = multer({storage: STORAGE}); 
 
+var transporter = nodemailer.createTransport({
+  service: 'gmail', 
+  auth: {
+    user: 'webb322assigment2@gmail.com',
+    pass: 'Winter2020'
+  }
+})
+
 // call this function after the http server starts listening for requests
 function onHttpStart() {
-    console.log("Express http server listening on: " + HTTP_PORT);
-  }
-  
+  console.log("Express http server listening on: " + HTTP_PORT);
+}
+
 app.use(express.static("views"));
-app.use(express.static("./public/"));///this may help !!!1
+app.use(express.static("public"));
 
   // setup a 'route' to listen on the default url path 
   app.get("/", function(req,res){
@@ -67,21 +62,21 @@ app.post("/contact-form-process", UPLOAD.single("photo")),(req,res)=> {
 }
 
 var mailOptions =  {
-  from: 'web322assigment2@gmail.com',
-  to:FORM_DATA.email,
+  from: 'webb322assigment2@gmail.com',
+  to: 'webb322assigment2@gmail.com',    //webb322assigment2@gmail.com
   subject: 'Test email from NODE.js using nodemailer',
-  html: '<p>Hello' +  FORM_DATA.fname+ ":<p>Thank  you for contacting us</p>"
+  html: '<p>Hello' + ":<p>Thank  you for contacting us</p>"
 
 }
 
-  transporter.sendMail(mailOptions,(error,info) =>{
-    if(error){
-    console.log("ERROR: "+ error);
-    }else{
-      console.log("SUCCESS: " +info.response ); 
-    }
-  
-  }); 
+transporter.sendMail(mailOptions,(error,info) =>{
+  if(error){
+  console.log("ERROR: "+ error);
+  }else{
+    console.log("SUCCESS: " +info.response ); 
+  }
+
+}); 
 
 // setup http server to listen on HTTP_PORT
 app.listen(HTTP_PORT, onHttpStart);
