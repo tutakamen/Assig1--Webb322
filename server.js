@@ -63,9 +63,9 @@ app.post("/contact-form-process", UPLOAD.single("photo")),(req,res)=> {
 
 var mailOptions =  {
   from: 'webb322assigment2@gmail.com',
-  to: 'webb322assigment2@gmail.com',    //webb322assigment2@gmail.com
-  subject: 'Test email from NODE.js using nodemailer',
-  html: '<p>Hello' + ":<p>Thank  you for contacting us</p>"
+  to: 'webb322assigment2@gmail.com',    
+  subject: 'Welcome to StayAnywhere',
+  html: '<p>Hello' + ":<p>Thank  you for contacting us  RRFRF</p>"
 
 }
 
@@ -73,7 +73,7 @@ transporter.sendMail(mailOptions,(error,info) =>{
   if(error){
   console.log("ERROR: "+ error);
   }else{
-    console.log("SUCCESS: " +info.response ); 
+    console.log("Email sent: " +info.response ); 
   }
 
 }); 
