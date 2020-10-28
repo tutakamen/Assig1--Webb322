@@ -38,19 +38,25 @@ app.use(express.static("public"));
 
   // setup a 'route' to listen on the default url path 
   app.get("/", function(req,res){
-    res.render(path.join(__dirname,"/views/Home.hbs"));
+    // res.render(path.join(__dirname,"/views/Home.hbs"));
+    res.render('Home',{layout:false}); 
   });
   
   app.get("/Listings", function(req,res){
-    res.sendFile(path.join(__dirname,"/views/Listings.hbs"));
+    // res.render(path.join(__dirname,"/views/Listings.hbs"));
+    res.render('Listings',{layout:false});
 });
 
 app.get("/contact", function(req,res){
-  res.sendFile(path.join(__dirname,"/views/contact.hbs"));
+  // res.render(path.join(__dirname,"/views/contact.hbs"));
+  res.render('contact',{layout:false});
+
 });
 
 app.get("/dashboard", function(req,res){
-  res.sendFile(path.join(__dirname,"/views/dashboard.hbs"));
+  // res.render(path.join(__dirname,"/views/dashboard.hbs"));
+  res.render('dashboard',{layout:false});
+
 });
 
 
