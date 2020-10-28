@@ -73,6 +73,7 @@ app.post("/contact-form-process", UPLOAD.single("photo")),(req,res)=> {
     "<br/><br/>Welcome <strong>"  + FORM_DATA.fname + " " +  FORM_DATA.lname + "</strong>" + 
     "to the world of form processing."
 
+    res.render('dashboard',{layout:false});
     res.send(DATA_RECEIVED); 
 }
 
