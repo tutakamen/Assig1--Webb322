@@ -68,12 +68,12 @@ app.post("/contact-form-process", UPLOAD.single("photo")),(req,res)=> {
   const DATA_RECEIVED =  " Your submissionm was received:<br>/br" + 
     "Your form  data was: <br/>"  + JSON.stringify(FORM_DATA)  + "<br/><br>" +  
     "Your file  data was: <br/>"  + JSON.stringify(FORM_FILE)  + 
-    // "<br/><P>THIS WAS THE IMAGE UPLOADED :<BR/>" + 
-    // "<IMG SRC='/photos/"  + FORM_FILE.filename  +  "'/>"  +
     "<br/><br/>Welcome <strong>"  + FORM_DATA.fname + " " +  FORM_DATA.lname + "</strong>" + 
     "to the world of form processing."
 
-    res.render('dashboard',{layout:false});
+    res.render('dashboard',{
+      data: FORM_DATA.fname,
+      layout:false});
 
     res.send(DATA_RECEIVED); 
 }

@@ -65,5 +65,6 @@ password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
   
 
-
-document.getElementById("dashBoard").innerHTML = "Hey There " ;
+window.onclick = function(event) {
+document.getElementById("dashBoard").innerHTML = "Hey there " ;
+}
