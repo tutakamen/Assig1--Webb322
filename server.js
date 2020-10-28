@@ -3,6 +3,7 @@ var app = express();
 var path = require("path");
 var multer = require("multer");
 var nodemailer = require("nodemailer");
+const hbs = require("express-handlebars");
 
 var HTTP_PORT = process.env.PORT || 8080;
 
@@ -28,20 +29,28 @@ function onHttpStart() {
   console.log("Express http server listening on: " + HTTP_PORT);
 }
 
+
+app.engine(".hbs", exphbs({ extname: ".hbs" }));
+app.set("view engine", ".hbs");
+
 app.use(express.static("views"));
 app.use(express.static("public"));
 
   // setup a 'route' to listen on the default url path 
   app.get("/", function(req,res){
-    res.sendFile(path.join(__dirname,"/views/Home.html"));
+    res.render(path.join(__dirname,"/views/Home.hbs"));
   });
   
   app.get("/Listings", function(req,res){
-    res.sendFile(path.join(__dirname,"/views/Listings.html"));
+    res.sendFile(path.join(__dirname,"/views/Listings.hbs"));
 });
 
 app.get("/contact", function(req,res){
-  res.sendFile(path.join(__dirname,"/views/contact.html"));
+  res.sendFile(path.join(__dirname,"/views/contact.hbs"));
+});
+
+app.get("/dashboard", function(req,res){
+  res.sendFile(path.join(__dirname,"/views/dashboard.hbs"));
 });
 
 
