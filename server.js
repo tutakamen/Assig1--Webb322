@@ -74,6 +74,7 @@ app.post("/contact-form-process", UPLOAD.single("photo")),(req,res)=> {
     "to the world of form processing."
 
     res.render('dashboard',{layout:false});
+
     res.send(DATA_RECEIVED); 
 }
 
