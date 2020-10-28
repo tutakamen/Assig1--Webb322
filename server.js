@@ -3,7 +3,7 @@ var app = express();
 var path = require("path");
 var multer = require("multer");
 var nodemailer = require("nodemailer");
-const hbs = require("express-handlebars");
+const exphbs = require("express-handlebars");
 
 var HTTP_PORT = process.env.PORT || 8080;
 
