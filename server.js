@@ -53,8 +53,8 @@ app.post("/contact-form-process", UPLOAD.single("photo")),(req,res)=> {
   const DATA_RECEIVED =  " Your submissionm was received:<br>/br" + 
     "Your form  data was: <br/>"  + JSON.stringify(FORM_DATA)  + "<br/><br>" +  
     "Your file  data was: <br/>"  + JSON.stringify(FORM_FILE)  + 
-    "<br/><P>THIS WAS THE IMAGE UPLOADED :<BR/>" + 
-    "<IMG SRC='/photos/"  + FORM_FILE.filename  +  "'/>"  +
+    // "<br/><P>THIS WAS THE IMAGE UPLOADED :<BR/>" + 
+    // "<IMG SRC='/photos/"  + FORM_FILE.filename  +  "'/>"  +
     "<br/><br/>Welcome <strong>"  + FORM_DATA.fname + " " +  FORM_DATA.lname + "</strong>" + 
     "to the world of form processing."
 
@@ -65,7 +65,7 @@ var mailOptions =  {
   from: 'webb322assigment2@gmail.com',
   to: 'webb322assigment2@gmail.com',    
   subject: 'Welcome to StayAnywhere',
-  html: '<p>Hello' + ":<p>Thank  you for contacting us  RRFRF</p>"
+  html: '<p>Hello' + ":<p>Thank  you for staying with us</p>"
 
 }
 

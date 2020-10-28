@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- <script src="myscripts.js"></script> -->
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,56 +13,126 @@
         <ul class="navigation">
             <button onclick="document.getElementById('bg-modal').style.display='block'">About</button>
             <button> <a href="/Listings">See Listings</a></button>
-            <button onclick="document.getElementById('id01').style.display='block'">Registration</button>
             <button onclick="document.getElementById('id02').style.display='block'">Sign in</button>
             <button onclick="document.getElementById('id03').style.display='block'">Search</button>
-            <button> <a href="/contact">Contact Us </a></button>
+            <button> <a href="/contact">Contact Us/ Registration </a></button>
         </ul>
     </nav>
 
+    <h1>Sign Up</h1>
+    <h2>Please fill in this form to create an account.</h2>
+    <hr>
 
-<form action="/contact-form-process" method="POST" enctype="multipart/form-data"></form>
-    <table style="border: 1px solid aaaaaa; padding: 6px;"></table>
+    <div id="bg-modal" class="modal" >
+      <span onclick="document.getElementById('bg-modal').style.display='none'" class="close" title="Close Modal">X</span>
+      <p id="d1"></p>
+      <p id="d2"></p>
+      <p id="d3"></p>
+      <p id="d4"></p>
+    </div>
+    <div id="id02" class="modal">
+    <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">X</span>
+    <form class="modal-content" action="/action_page.php">
+      <div class="container">
+        
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" required>
+    
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+    
+    
+        <label>
+          <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+        </label>
+    
+        <div class="clearfix">
+          <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+          <button type="submit" class="signup">Sign Up</button>
+        </div>
+      </div>
+    </form>
+    </div>
+    <div id="id03" class="modal">
+    <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">X</span>
+    <form class="modal-content" action="/action_page.php">
+      <div class="container">      
+        <label for="start">Start date:</label>
+        <input type="date" id="start" name="trip-start" min="2020-10-08" max="2021-12-31">
+    
+    
+        <label for="end">End date:</label>
+        <input type="date" id="end" name="trip-start" min="2020-10-08" max="2021-12-31">
+    
+        <label for="guests1">Number of guests:</label>
+        <input type="number" id="guests" name="guestsnumber" min="1" max="13">
+    
+        <label for="cities"> Location:</label>
+        <select id="cities" name="cities">
+          <option value="Toronto">Toronto</option>
+          <option value="Calgary">Calgary</option>
+          <option value="Montreal">Montreal</option>
+          <option value="Port Perry">Port Perry</option>
+        </select>
+    
+        <div class="clearfix">
+          <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
+          <button type="submit" class="signup">Search</button> 
+        </div>
+      </div>
+    </form>
+    </div>
+    
+
+
+<form action="/contact-form-process" method="POST" enctype="multipart/form-data">
+    <table style="border: 1px solid aaaaaa; padding: 6px;">
         <tr>
           <td><label for="fname">First Name</label></td>
-          <td><input type="text" maxlength="20"  size="20" placeholder="First Name" id="fname" name="fname"></td>
+          <td><input type="text" maxlength="20"  size="20" placeholder="First Name" id="fname" name="fname" pattern="[A-Za-z]*" title="Must begin with alphabet" required></td>
         </tr>
         <tr>
           <td><label for="lname">Last Name</label></td>
-          <td><input type="text" maxlength="25"  size="20" placeholder="Last Name" id="lname" name="lname"></td>
+          <td><input type="text" maxlength="25"  size="20" placeholder="Last Name" id="lname" name="lname"  pattern="[A-Za-z]*" title="Must begin with alphabet" required></td>
        </tr>
-       <tr>
+       <tr> 
         <td><label for="email">Email</label></td>
-        <td><input type="text" maxlength="75"  size="40" placeholder="Email Address" id="email" name="email"></td>
+        <td><input type="text" maxlength="75" size="40" placeholder="Email Address" id="email" name="email" require ></td>
        </tr>
        <tr>
-        <td><label for="reason">Reason</label></td><br/>
-        <td>
-            <input type="radio" name="reason" id="reason1" value="M"  for="MoreInfo">More Information</label><br/>
-            <input type="radio" name="reason" id="reason2" value="T"  for="Toubleshooting">Toubleshooting</label><br/>
-            <input type="radio" name="reason" id="reason3" value="O"  for="other">Other</label><br/>
-        </td>
+        <td><label for="psw">Password</label></td>
+        <td><input type="password" placeholder="Enter Password" name="psw" id="psw"
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required></td>
+      </tr>
+      <tr>
+        <td><label for="psw-repeat"><b>Repeat Password</b></label></td>
+        <td><input type="password" placeholder="Repeat Password" name="psw-repeat" id="confirm_password" required></td>
        </tr>
        <tr>
          <td>&nbsp;</td>
-         <td><input type="submit" value="Submit"></td>
+         <td><input type="submit" value="Submit"><a href="/dashboard"></a></td>
        </tr>
+    </table>
+</form>
+
+<script type="text/javascript">
 
 
+</script> 
 
-
-       <footer class="site-footer">
-        <nav>
-                <a href="http://www.facebook.com/my_page"
-                  >Facebook <i class="fab fa-facebook"></i>
-                </a>
-                <a href="https://www.instagram.com/?hl=en"
-                  >Instagram <i class="fab fa-instagram-square"></i>
-                </a>
-                <a href="https://twitter.com/">Twitter <i class="fab fa-twitter"></i> </a>
-                <a href="https://www.tiktok.com/en/">TicTok <i class="fab fa-tiktok"></i></a>          
-          </nav>
-        </footer>
+<footer class="site-footer">
+<nav>
+        <a href="http://www.facebook.com/my_page"
+          >Facebook <i class="fab fa-facebook"></i>
+        </a>
+        <a href="https://www.instagram.com/?hl=en"
+          >Instagram <i class="fab fa-instagram-square"></i>
+        </a>
+        <a href="https://twitter.com/">Twitter <i class="fab fa-twitter"></i> </a>
+        <a href="https://www.tiktok.com/en/">TicTok <i class="fab fa-tiktok"></i></a>   
+        <script src="myscripts.js"></script>       
+  </nav>
+</footer>
       
 
 
