@@ -182,7 +182,7 @@
                           bottom: 0;
                           width: 100%;
                           height: 2.5rem;            /* Footer height */
-                          background:rgb(11, 106, 153);
+                          background:rgb(7, 61, 88);
 
                         }
                           .site-footer a {
@@ -191,7 +191,7 @@
                         
 
                         form{
-                      color: rgba(19, 73, 2, 0.801);
+                      color: rgba(1, 2, 1, 0.801);
 
                         }
 
