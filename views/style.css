@@ -1,348 +1,1014 @@
-/* Body */
-body{  
-    font-family:Georgia, Arial, Helvetica, Sans-serif,serif;
-    font-size:15px;
-    color:#000;
-    background:whitesmoke ;
-    margin: 0;
-    font-weight: 300;
-}
+@media only screen and (max-device-width: 480px) and (orientation: portrait){
+                    /* Body */
+                      body{  
+                        font-family:Georgia, Arial, Helvetica, Sans-serif,serif;
+                        font-size:15px;
+                        background:rgb(48, 95, 114) ;
+                        margin: 0;
+                        font-weight: 300;
+                      }
+                        /* Header   */
+                        #header{
+                          width:960px;
+                          height:120px;
+                          background:scroll;
+                          text-align: justify;
+                      }
 
-/* Header   */
-#header{
-    width:960px;
-    height:120px;
-    background:scroll;
-    text-align: justify;
-}
+                      #header ::after{
+                          content: '';
+                          display: table;
+                          clear: both;
+                      }
 
-#header ::after{
-    content: '';
-    display: table;
-    clear: both;
-}
-
-/* Navigation */
-/* Add a black background color to the top navigation */
-.topnav {
-    /* background-color: rgb(8, 8, 8); */
-    overflow: hidden;
-    width: 230px;
-  }
-  
-  /* Style the links inside the navigation bar */
-  .topnav a  {
-    float: inline-end;
-    color: #857575;
-    text-align: justify;
-    padding: 14px 16px;
-    text-decoration: solid;
-    font-size: 17px;
-  }
-  
-  /* Change the color of links on hover */
-  .topnav a:hover {
-    background-color: rgb(115, 133, 238);
-    color: rgb(22, 21, 21);
-  }
-  
-  /* Add a color to the active/current link */
-  .topnav a.active {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
+                      /* Navigation */
+                      /* Add a black background color to the top navigation */
+                      .topnav {
+                          /* background-color: rgb(8, 8, 8); */
+                          overflow: hidden;
+                          width: 230px;
+                        }
+                        
+                        /* Style the links inside the navigation bar */
+                        .topnav a  {
+                          float: inline-end;
+                          color: #857575;
+                          text-align: justify;
+                          padding: 14px 16px;
+                          text-decoration: solid;
+                          font-size: 17px;
+                        }
+                        
+                        /* Change the color of links on hover */
+                        .topnav a:hover {
+                          background-color: rgb(115, 133, 238);
+                          color: rgb(22, 21, 21);
+                        }
+                        
+                        /* Add a color to the active/current link */
+                        .topnav a.active {
+                          background-color: #4CAF50;
+                          color: white;
+                        }
 
 
-/* Pop Ups  */
 
-#content-wrapper {
-    width:960px;
-    text-align:left;
-    margin:0 auto;
-    background:#fff;
-    padding:15px;
-     
-}
-#post-content {
-    float:left;
-    width:600px;
-    padding:0 15px 15px 15px;
-}
- 
-.sidebar{
-    float:left;
-    width:300px;
-    margin:0 0 0 15px;
-    font-size:15px;
-    list-style:none;
-}
- 
+                      /* Pop Ups  */
+                      #content-wrapper {
+                          width:960px;
+                          text-align:left;
+                          margin:0 auto;
+                          background:#fff;
+                          padding:15px;
+                          
+                      }
+                      #post-content {
+                          float:left;
+                          width:600px;
+                          padding:0 15px 15px 15px;
+                      }
+                      
+                      .sidebar{
+                          float:left;
+                          width:300px;
+                          margin:0 0 0 15px;
+                          font-size:15px;
+                          list-style:none;
+                      }
 
-.popup .overlay{
-    width: 100vw;
-    height: 100vw;
-    background-color: rgb(0, 0, 0.7);
-    opacity: 0.7;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    display: none;
-}
+                      .popup .overlay{
+                          width: 100vw;
+                          height: 100vw;
+                          background-color: rgb(0, 0, 0.7);
+                          opacity: 0.7;
+                          position: fixed;
+                          top: 0px;
+                          left: 0px;
+                          display: flex;
+                          justify-content: center;
+                          align-items: center;
+                          display: none;
+                      }
 
-.popup .content{
+                      .popup .content{
+                          position: absolute;
+                          top: 50%;
+                          left: 50%;
+                          transform: translate(-50%,-50%) scale(0);
+                          background: #fff;
+                          width: 450px;
+                          height: 220px;
+                          z-index: 2;
+                          text-align: center;
+                          padding: 20px;
+                          box-sizing: border-box;
+                      }
 
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%) scale(0);
-    background: #fff;
-    width: 450px;
-    height: 220px;
-    z-index: 2;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
-}
+                      .popup .close-btn{
+                          position: absolute;
+                          right: 20px ;
+                          top: 40px;
+                          width: 20px;
+                          height: 20px;
+                          background: #222;
+                          color: #fff;
+                          font-size: 40px;
+                          font-weight: 200;
+                          line-height: 30px;
+                          text-align: center;
+                          border-radius: 20%;
+                      }
 
-.popup .close-btn{
-    position: absolute;
-    right: 20px ;
-    top: 40px;
-    width: 20px;
-    height: 20px;
-    background: #222;
-    color: #fff;
-    font-size: 40px;
-    font-weight: 200;
-    line-height: 30px;
-    text-align: center;
-    border-radius: 20%;
-}
+                      .popup.active .overlay {
 
-.popup.active .overlay {
+                          display: block;
+                      }
 
-    display: block;
-}
+                      .popup.active .content{
 
-.popup.active .content{
+                          transition: all 300ms ease-in-out;
+                          transform: translate(-50%,-50%) scale(1);
 
-    transition: all 300ms ease-in-out;
-    transform: translate(-50%,-50%) scale(1);
-
-}
-* {
-  box-sizing: border-box;
-}
+                      }
+                      * {
+                        box-sizing: border-box;
+                      }
 
 
-/* LOGO */
-.logo{
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 5px;
-  
-    width: 10%;
-  
+                      /* LOGO */
+                      .logo{
+                          border: 1px solid #ddd;
+                          border-radius: 4px;
+                          padding: 5px;
+                          width: 100%;
+                          height: 70% ;
+                          
+                      }
 
-}
-
-
-/* Background */
-
-.bg {
-    height: 100%;
-    background-position: initial;
-    background-repeat: no-repeat;
-    background-size: auto;
-    opacity: inherit;
-
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-
-  }
+                      .logo1{
+                        border: 1px solid #ddd;
+                        border-radius: 4px;
+                        padding: 5px;
+                        width: 260%;
+                        height: 350px;
+                    }
 
 
-  /* Style the footer */
-  #page-container {
-    position: relative;
-    min-height: 100vh;
-  }
-
-  #content-wrap {
-    padding-bottom: 2.5rem;    /* Footer height */
-  }
-  
-  #footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 2.5rem;            /* Footer height */
-    background:rgb(11, 106, 153);
-
-  }
-    .site-footer a {
-    color: #000;
-  }
-  
-
-  form{
-color: rgba(19, 73, 2, 0.801);
-
-  }
+                      /* Background */
+                      .bg {
+                          height: 100%;
+                          background-position: initial;
+                          background-repeat: no-repeat;
+                          background-size: auto;
+                          opacity: inherit;
+                          background-repeat: no-repeat;
+                          background-attachment: fixed;
+                          background-size: cover;
+                        }
 
 
-  * {box-sizing: border-box}
-/* Full-width input fields */
-  input[type=text], input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-}
+                        /* Style the footer */
+                        #page-container {
+                          position: relative;
+                          min-height: 100vh;
+                        }
 
-/* Add a background color when the inputs get focus */
-input[type=text]:focus, input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
-}
+                        #content-wrap {
+                          padding-bottom: 2.5rem;    /* Footer height */
+                        }
+                        
+                        #footer {
+                          position: absolute;
+                          bottom: 0;
+                          width: 100%;
+                          height: 2.5rem;            /* Footer height */
+                          background:rgb(11, 106, 153);
 
-/* Set a style for all buttons */
-button {
-  background-color: #0a034d;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-}
+                        }
+                          .site-footer a {
+                          color: #000;
+                        }
+                        
 
-button:hover {
-  opacity:1;
-}
+                        form{
+                      color: rgba(19, 73, 2, 0.801);
 
-/* Extra styles for the cancel button */
-.cancelbtn {
-  padding: 14px 20px;
-  background-color: #f44336;
-}
+                        }
 
-/* Float cancel and signup buttons and add an equal width */
-.cancelbtn, .signupbtn {
-  float: left;
-  width: 50%;
-}
+                        * {box-sizing: border-box}
+                      /* Full-width input fields */
+                        input[type=text], input[type=password] {
+                        width: 100%;
+                        padding: 15px;
+                        margin: 5px 0 22px 0;
+                        display: inline-block;
+                        border: none;
+                        background: #f1f1f1;
+                      }
 
-/* Add padding to container elements */
-.container {
-  padding: 16px;
-}
+                      /* Add a background color when the inputs get focus */
+                      input[type=text]:focus, input[type=password]:focus {
+                        background-color: #ddd;
+                        outline: none;
+                      }
 
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: #132700;
-  padding-top: 50px;
-}
+                      /* Set a style for all buttons */
+                      button {
+                        background-color: #0a034d;
+                        color: white;
+                        padding: 14px 20px;
+                        margin: 8px 0;
+                        border: none;
+                        cursor: pointer;
+                        width: 100%;
+                        opacity: 0.9;
+                      }
 
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-  border: 1px solid rgb(63, 190, 221);
-  width: 80%; /* Could be more or less, depending on screen size */
-}
+                      button:hover {
+                        opacity:1;
+                      }
 
-/* Style the horizontal ruler */
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
+                      /* Extra styles for the cancel button */
+                      .cancelbtn {
+                        padding: 14px 20px;
+                        background-color: #f44336;
+                      }
 
-/* The Close Button (x) */
-.close {
-  position: absolute;
-  right: 35px;
-  top: 15px;
-  font-size: 40px;
-  font-weight: bold;
-  color: #f1f1f1;
-}
+                      /* Float cancel and signup buttons and add an equal width */
+                      .cancelbtn, .signupbtn {
+                        float: left;
+                        width: 50%;
+                      }
 
-.close:hover,
-.close:focus {
-  color: #f44336;
-  cursor: pointer;
-}
+                      /* Add padding to container elements */
+                      .container {
+                        padding: 16px;
+                      }
 
-/* Clear floats */
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
+                      /* The Modal (background) */
+                      .modal {
+                        display: none; /* Hidden by default */
+                        position: fixed; /* Stay in place */
+                        z-index: 1; /* Sit on top */
+                        left: 0;
+                        top: 0;
+                        width: 100%; /* Full width */
+                        height: 100%; /* Full height */
+                        overflow: auto; /* Enable scroll if needed */
+                        background-color: #132700;
+                        padding-top: 50px;
+                      }
 
-/* Change styles for cancel button and signup button on extra small screens */
-@media screen and (max-width: 300px) {
-  .cancelbtn, .signupbtn {
-    width: 100%;
-  }
-}
+                      /* Modal Content/Box */
+                      .modal-content {
+                        background-color: #fefefe;
+                        margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+                        border: 1px solid rgb(63, 190, 221);
+                        width: 80%; /* Could be more or less, depending on screen size */
+                      }
 
-section,h1 {
-  padding: 0 1em;
-}
+                      /* Style the horizontal ruler */
+                      hr {
+                        border: 1px solid #f1f1f1;
+                        margin-bottom: 25px;
+                      }
+
+                      /* The Close Button (x) */
+                      .close {
+                        position: absolute;
+                        right: 35px;
+                        top: 15px;
+                        font-size: 40px;
+                        font-weight: bold;
+                        color: #f1f1f1;
+                      }
+
+                      .close:hover,
+                      .close:focus {
+                        color: #f44336;
+                        cursor: pointer;
+                      }
+
+                      /* Clear floats */
+                      .clearfix::after {
+                        content: "";
+                        clear: both;
+                        display: table;
+                      }
+
+                      /* Change styles for cancel button and signup button on extra small screens */
+
+                      section,h1 {
+                        padding: 0 1em;
+                      }
 
 
-.grid
- {
-  display: grid;
-  grid-template-columns: repeat(3,300px);  /* 3 columns */
-  grid-template-rows: repeat(3,300px); /* 3 rows  */
-  grid-gap:100px 30px; /* 50 pixels of space added between rows and 30 pixels added between columns  */
-  margin-left: auto;
-  margin-right: auto;
+                      .grid
+                      {
+                        display: grid;
+                        grid-template-columns: repeat(3,300px);  /* 3 columns */
+                        grid-template-rows: repeat(3,300px); /* 3 rows  */
+                        grid-gap:100px 30px; /* 50 pixels of space added between rows and 30 pixels added between columns  */
+                        margin-left: auto;
+                        margin-right: auto;
 
-}
+                      }
 
-.grid-item{
-  border:thin gray solid;
-  padding:1px;
-  text-align: justify;
-  width: [width of img];
-  font-weight: bold;
-}
+                      .grid-item{
+                        border:thin gray solid;
+                        padding:1px;
+                        text-align: justify;
+                        width: [width of img];
+                        font-weight: bold;
+                      }
 
-img {
-  width: 100%;
-align-items: center;
-}
+                      img {
+                        width: 100%;
+                      align-items: flex-end  ;
+                      }
 
-p{
-  font-weight: 1000;
-  font-weight: bold; /* same as 700 */
-  font-weight: lighter; /* relative to the parent element */
+                      p{
+                        font-weight: 1000;
+                        font-weight: bold; /* same as 700 */
+                        font-weight: lighter; /* relative to the parent element */
+
+                      }
 
 }
 
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px){
+          /* Body */
+        body{  
+          font-family:Georgia, Arial, Helvetica, Sans-serif,serif;
+          font-size:15px;
+          background:rgb(48, 95, 114) ;
+          margin: 0;
+          font-weight: 300;
+        }
+          /* Header   */
+          #header{
+            width:960px;
+            height:120px;
+            background:scroll;
+            text-align: justify;
+        }
 
-body {
-  /* background-image: url( "Images/pexels-oliver-sjöström-1433052.jpg" ); */
-  background-size:cover ; 
-  background-color: rgb(214, 224, 222);
+        #header ::after{
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        /* Navigation */
+        /* Add a black background color to the top navigation */
+        .topnav {
+            /* background-color: rgb(8, 8, 8); */
+            overflow: hidden;
+            width: 230px;
+          }
+          
+          /* Style the links inside the navigation bar */
+          .topnav a  {
+            float: inline-end;
+            color: #857575;
+            text-align: justify;
+            padding: 14px 16px;
+            text-decoration: solid;
+            font-size: 17px;
+          }
+          
+          /* Change the color of links on hover */
+          .topnav a:hover {
+            background-color: rgb(115, 133, 238);
+            color: rgb(22, 21, 21);
+          }
+          
+          /* Add a color to the active/current link */
+          .topnav a.active {
+            background-color: #4CAF50;
+            color: white;
+          }
+
+
+
+        /* Pop Ups  */
+        #content-wrapper {
+            width:960px;
+            text-align:left;
+            margin:0 auto;
+            background:#fff;
+            padding:15px;
+            
+        }
+        #post-content {
+            float:left;
+            width:600px;
+            padding:0 15px 15px 15px;
+        }
+        
+        .sidebar{
+            float:left;
+            width:300px;
+            margin:0 0 0 15px;
+            font-size:15px;
+            list-style:none;
+        }
+
+        .popup .overlay{
+            width: 100vw;
+            height: 100vw;
+            background-color: rgb(0, 0, 0.7);
+            opacity: 0.7;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+        .popup .content{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%) scale(0);
+            background: #fff;
+            width: 450px;
+            height: 220px;
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .popup .close-btn{
+            position: absolute;
+            right: 20px ;
+            top: 40px;
+            width: 20px;
+            height: 20px;
+            background: #222;
+            color: #fff;
+            font-size: 40px;
+            font-weight: 200;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 20%;
+        }
+
+        .popup.active .overlay {
+
+            display: block;
+        }
+
+        .popup.active .content{
+
+            transition: all 300ms ease-in-out;
+            transform: translate(-50%,-50%) scale(1);
+
+        }
+        * {
+          box-sizing: border-box;
+        }
+
+
+        /* LOGO */
+        .logo{
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            width: 100%;
+            height: 70% ;
+            
+        }
+
+        .logo1{
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          padding: 5px;
+          width: 125%;
+          height: 300px;
+      }
+
+
+        /* Background */
+        .bg {
+            height: 100%;
+            background-position: initial;
+            background-repeat: no-repeat;
+            background-size: auto;
+            opacity: inherit;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+          }
+
+
+          /* Style the footer */
+          #page-container {
+            position: relative;
+            min-height: 100vh;
+          }
+
+          #content-wrap {
+            padding-bottom: 2.5rem;    /* Footer height */
+          }
+          
+          #footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 2.5rem;            /* Footer height */
+            background:rgb(11, 106, 153);
+
+          }
+            .site-footer a {
+            color: #000;
+          }
+          
+
+          form{
+        color: rgba(19, 73, 2, 0.801);
+
+          }
+
+          * {box-sizing: border-box}
+        /* Full-width input fields */
+          input[type=text], input[type=password] {
+          width: 100%;
+          padding: 15px;
+          margin: 5px 0 22px 0;
+          display: inline-block;
+          border: none;
+          background: #f1f1f1;
+        }
+
+        /* Add a background color when the inputs get focus */
+        input[type=text]:focus, input[type=password]:focus {
+          background-color: #ddd;
+          outline: none;
+        }
+
+        /* Set a style for all buttons */
+        button {
+          background-color: #0a034d;
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          cursor: pointer;
+          width: 100%;
+          opacity: 0.9;
+        }
+
+        button:hover {
+          opacity:1;
+        }
+
+        /* Extra styles for the cancel button */
+        .cancelbtn {
+          padding: 14px 20px;
+          background-color: #f44336;
+        }
+
+        /* Float cancel and signup buttons and add an equal width */
+        .cancelbtn, .signupbtn {
+          float: left;
+          width: 50%;
+        }
+
+        /* Add padding to container elements */
+        .container {
+          padding: 16px;
+        }
+
+        /* The Modal (background) */
+        .modal {
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          z-index: 1; /* Sit on top */
+          left: 0;
+          top: 0;
+          width: 100%; /* Full width */
+          height: 100%; /* Full height */
+          overflow: auto; /* Enable scroll if needed */
+          background-color: #132700;
+          padding-top: 50px;
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+          background-color: #fefefe;
+          margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+          border: 1px solid rgb(63, 190, 221);
+          width: 80%; /* Could be more or less, depending on screen size */
+        }
+
+        /* Style the horizontal ruler */
+        hr {
+          border: 1px solid #f1f1f1;
+          margin-bottom: 25px;
+        }
+
+        /* The Close Button (x) */
+        .close {
+          position: absolute;
+          right: 35px;
+          top: 15px;
+          font-size: 40px;
+          font-weight: bold;
+          color: #f1f1f1;
+        }
+
+        .close:hover,
+        .close:focus {
+          color: #f44336;
+          cursor: pointer;
+        }
+
+        /* Clear floats */
+        .clearfix::after {
+          content: "";
+          clear: both;
+          display: table;
+        }
+
+        /* Change styles for cancel button and signup button on extra small screens */
+
+        section,h1 {
+          padding: 0 1em;
+        }
+
+
+        .grid
+        {
+          display: grid;
+          grid-template-columns: repeat(3,300px);  /* 3 columns */
+          grid-template-rows: repeat(3,300px); /* 3 rows  */
+          grid-gap:100px 30px; /* 50 pixels of space added between rows and 30 pixels added between columns  */
+          margin-left: auto;
+          margin-right: auto;
+
+        }
+
+        .grid-item{
+          border:thin gray solid;
+          padding:1px;
+          text-align: justify;
+          width: [width of img];
+          font-weight: bold;
+        }
+
+        img {
+          width: 100%;
+        align-items: flex-end  ;
+        }
+
+        p{
+          font-weight: 1000;
+          font-weight: bold; /* same as 700 */
+          font-weight: lighter; /* relative to the parent element */
+
+        }
+
+
+}
+
+@media only screen and  (min-width: 1024px){
+          /* Body */
+          body{  
+              font-family:Georgia, Arial, Helvetica, Sans-serif,serif;
+              font-size:15px;
+              color:#000;
+              background:rgb(48, 95, 114);
+              margin: 0;
+              font-weight: 300;
+          }
+          /* Header   */
+          #header{
+              width:960px;
+              height:120px;
+              background:scroll;
+              text-align: justify;
+          }
+
+          #header ::after{
+              content: '';
+              display: table;
+              clear: both;
+          }
+
+          /* Navigation */
+          /* Add a black background color to the top navigation */
+          .topnav {
+              overflow: hidden;
+              width: 230px;
+            }
+            
+            /* Style the links inside the navigation bar */
+            .topnav a  {
+              float: inline-end;
+              color: #857575;
+              text-align: justify;
+              padding: 14px 16px;
+              text-decoration: solid;
+              font-size: 17px;
+            }
+            
+            /* Change the color of links on hover */
+            .topnav a:hover {
+              background-color: rgb(115, 133, 238);
+              color: rgb(22, 21, 21);
+            }
+            
+            /* Add a color to the active/current link */
+            .topnav a.active {
+              background-color: #4CAF50;
+              color: white;
+            }
+
+
+
+          /* Pop Ups  */
+          #content-wrapper {
+              width:960px;
+              text-align:left;
+              margin:0 auto;
+              background:#fff;
+              padding:15px;
+              
+          }
+          #post-content {
+              float:left;
+              width:600px;
+              padding:0 15px 15px 15px;
+          }
+          
+          .sidebar{
+              float:left;
+              width:300px;
+              margin:0 0 0 15px;
+              font-size:15px;
+              list-style:none;
+          }
+
+          .popup .overlay{
+              width: 100vw;
+              height: 100vw;
+              background-color: rgb(0, 0, 0.7);
+              opacity: 0.7;
+              position: fixed;
+              top: 0px;
+              left: 0px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              display: none;
+          }
+
+          .popup .content{
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%,-50%) scale(0);
+              background: #fff;
+              width: 450px;
+              height: 220px;
+              z-index: 2;
+              text-align: center;
+              padding: 20px;
+              box-sizing: border-box;
+          }
+
+          .popup .close-btn{
+              position: absolute;
+              right: 20px ;
+              top: 40px;
+              width: 20px;
+              height: 20px;
+              background: #222;
+              color: #fff;
+              font-size: 40px;
+              font-weight: 200;
+              line-height: 30px;
+              text-align: center;
+              border-radius: 20%;
+          }
+
+          .popup.active .overlay {
+
+              display: block;
+          }
+
+          .popup.active .content{
+
+              transition: all 300ms ease-in-out;
+              transform: translate(-50%,-50%) scale(1);
+
+          }
+          * {
+            box-sizing: border-box;
+          }
+
+
+          /* LOGO logo1 is the logo */
+          .logo{
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              padding: 5px;
+              width: 99%;
+              height: 70%;
+          }
+          /* Background */
+          .logo1{
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            width: 99%;
+            height: 500px;
+        }
+
+          .bg {
+              height: 100%;
+              background-position: initial;
+              background-repeat: no-repeat;
+              background-size: auto;
+              opacity: inherit;
+
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+              background-size: cover;
+
+            }
+
+
+            /* Style the footer */
+            #page-container {
+              position: relative;
+              min-height: 100vh;
+            }
+
+            #content-wrap {
+              padding-bottom: 2.5rem;    /* Footer height */
+            }
+            
+            #footer {
+              position: absolute;
+              bottom: 0;
+              width: 100%;
+              height: 2.5rem;            /* Footer height */
+              background:rgb(11, 106, 153);
+
+            }
+              .site-footer a {
+              color: #000;
+            }
+            
+
+            form{
+          color: rgba(19, 73, 2, 0.801);
+
+            }
+
+
+            * {box-sizing: border-box}
+          /* Full-width input fields */
+            input[type=text], input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+          }
+
+          /* Add a background color when the inputs get focus */
+          input[type=text]:focus, input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+          }
+
+          /* Set a style for all buttons */
+          button {
+            background-color: #0a034d;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+          }
+
+          button:hover {
+            opacity:1;
+          }
+
+          /* Extra styles for the cancel button */
+          .cancelbtn {
+            padding: 14px 20px;
+            background-color: #f44336;
+          }
+
+          /* Float cancel and signup buttons and add an equal width */
+          .cancelbtn, .signupbtn {
+            float: left;
+            width: 50%;
+          }
+
+          /* Add padding to container elements */
+          .container {
+            padding: 16px;
+          }
+
+          /* The Modal (background) */
+          .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: #215464;
+            padding-top: 50px;
+          }
+
+          /* Modal Content/Box */
+          .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid rgb(63, 190, 221);
+            width: 80%; /* Could be more or less, depending on screen size */
+          }
+
+          /* Style the horizontal ruler */
+          hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+          }
+
+          /* The Close Button (x) */
+          .close {
+            position: absolute;
+            right: 35px;
+            top: 15px;
+            font-size: 40px;
+            font-weight: bold;
+            color: #f1f1f1;
+          }
+
+          .close:hover,
+          .close:focus {
+            color: #f44336;
+            cursor: pointer;
+          }
+
+          /* Clear floats */
+          .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+          }
+
+          /* Change styles for cancel button and signup button on extra small screens */
+       
+
+          section,h1 {
+            padding: 0 1em;
+          }
+
+
+          .grid
+          {
+            display: grid;
+            grid-template-columns: repeat(3,300px);  /* 3 columns */
+            grid-template-rows: repeat(3,300px); /* 3 rows  */
+            grid-gap:100px 30px; /* 50 pixels of space added between rows and 30 pixels added between columns  */
+            margin-left: auto;
+            margin-right: auto;
+
+          }
+
+          .grid-item{
+            border:thin gray solid;
+            padding:1px;
+            text-align: justify;
+            width: [width of img];
+            font-weight: bold;
+          }
+
+          img {
+            width: 100%;
+          align-items: center;
+          }
+
+          p{
+            font-weight: 1000;
+            font-weight: bold; /* same as 700 */
+            font-weight: lighter; /* relative to the parent element */
+          }
+
 }
