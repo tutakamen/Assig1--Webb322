@@ -37,7 +37,7 @@ app.use(express.static("views"));
 app.use(express.static("public"));
 
   // setup a 'route' to listen on the default url path 
-  app.get("/", function(req,res){
+  app.get("/", (req,res) => {
 
     var Employee =  {
       name: "John",
