@@ -39,20 +39,27 @@ app.use(express.static("public"));
   // setup a 'route' to listen on the default url path 
   app.get("/", function(req,res){
 
-    var data= {
-
+    var Employee =  {
       name: "John",
-      age: 23
-    }
+      age: 23,
+      occupation: "developer",
+      company: "Scotiabank"
+  }; 
 
-    res.json(data); 
+    res.render('Home',{
+      data: Employee,
+      layout:false  
+    }); 
 
-    // res.render('Home',{layout:false}); 
   });
   
+
+
+
+
   app.get("/Listings", function(req,res){
     res.render('Listings',{layout:false});
-});
+  });
 
 app.get("/contact", function(req,res){
   res.render('contact',{layout:false});
