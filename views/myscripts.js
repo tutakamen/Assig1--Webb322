@@ -14,8 +14,6 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
-
-
 var modal = document.getElementById('bg-modal');
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -29,8 +27,6 @@ document.getElementById("d3").innerHTML = "Our listings our homeowners opening t
 document.getElementById("d4").innerHTML = "So why book an overpriced unoriginal hotel room ?  Explore the world, feel at home. " ;
 
 }
-
-
 //Form Validation---LOGIN FORM
 function validateFormEmail() {
     var x = document.forms["signUp"]["email"].value;
