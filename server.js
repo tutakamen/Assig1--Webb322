@@ -11,7 +11,6 @@ var multer = require("multer");
 var nodemailer = require("nodemailer");
 const exphbs = require("express-handlebars");
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
 var  mongoose  = require("mongoose")  ; 
 var  Schema  = mongoose.Schema  ; 
 var UserModel = require("./models/userModel"); 
@@ -19,11 +18,16 @@ const config  = require("./js/config");
 
 var db = mongoose.createConnection( config.dbconn  , { useNewUrlParser: true ,useUnifiedTopology: true } ) ; 
 
+mongoose.connection.on("open",() =>{
+console.log("Database Connected"); 
+
+});
+
 var  bambi  = new UserModel({
   userName: config.userName,
-  fname:  "mustafa",
-  lname :  "Bukhari",
-  SIN : 999999999,
+  fname:  "John",
+  lname :  "Rasco",
+  SIN : 111111111,
   DOB:  new Date()
 });  
 
@@ -33,7 +37,7 @@ bambi.save((err)=>{
   }else{
       console.log("You are saved - Bambi !!!!!!!") ;  
 
-      UserModel.findOne({fname: "mustafa"})
+      UserModel.findOne({fname: "John"})
       .exec()
       .then((usr)=>{
       
@@ -46,87 +50,86 @@ bambi.save((err)=>{
   .catch((err)  => {console.log("An error occured ${err}");});
 }
 });
-*/
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-var HTTP_PORT = process.env.PORT || 8080;
+// var HTTP_PORT = process.env.PORT || 8080;
 
-var upload = multer({ dest: './public/data/' })
+// var upload = multer({ dest: './public/data/' })
 
-var transporter = nodemailer.createTransport({
-  service: 'gmail', 
-  auth: {
-    user: 'webb322assigment2@gmail.com',
-    pass: 'Winter2020'
-  }
-})
+// var transporter = nodemailer.createTransport({
+//   service: 'gmail', 
+//   auth: {
+//     user: 'webb322assigment2@gmail.com',
+//     pass: 'Winter2020'
+//   }
+// })
 
-// call this function after the http server starts listening for requests
-function onHttpStart() {
-  console.log("Express http server listening on: " + HTTP_PORT);
-}
-
-
-app.engine(".hbs", exphbs({ extname: ".hbs" }));
-app.set("view engine", ".hbs");
-
-app.use(express.static("views"));
-app.use(express.static("public"));
-
-// setup a 'route' to listen on the default url path 
-app.get("/", (req,res) => {
-  res.render('Home',{layout:false}); 
-});
-app.get("/about", (req,res) => {
-  res.render('about',{layout:false}); 
-});
-
-app.get("/login", function(req,res){
-  res.render('login',{layout:false});
-});
-
-app.get("/search", function(req,res){
-  res.render('search',{layout:false});
-});
-
-app.get("/Listings", function(req,res){
-  res.render('Listings',{layout:false});
-});
-
-app.get("/contact", function(req,res){
-  res.render('contact',{layout:false});
-});
-app.get("/dashboard", function(req,res){
-  res.render('dashboard',{layout:false});
-});
+// // call this function after the http server starts listening for requests
+// function onHttpStart() {
+//   console.log("Express http server listening on: " + HTTP_PORT);
+// }
 
 
-//this should be the name tag on the photo upload input tag in form  
-app.post("/contact-form-process",upload.none(), (req,res)=> {
-  var FORM_DATA = req.body ; //only text 
+// app.engine(".hbs", exphbs({ extname: ".hbs" }));
+// app.set("view engine", ".hbs");
 
-    var mailOptions =  {
-      from: 'webb322assigment2@gmail.com',
-      to: FORM_DATA.email ,    
-      subject: 'Welcome to StayAnywhere',
-      html: '<p>Hello ' +  ":<p>Thank you for staying with us</p>"
-    }
+// app.use(express.static("views"));
+// app.use(express.static("public"));
+
+// // setup a 'route' to listen on the default url path 
+// app.get("/", (req,res) => {
+//   res.render('Home',{layout:false}); 
+// });
+// app.get("/about", (req,res) => {
+//   res.render('about',{layout:false}); 
+// });
+
+// app.get("/login", function(req,res){
+//   res.render('login',{layout:false});
+// });
+
+// app.get("/search", function(req,res){
+//   res.render('search',{layout:false});
+// });
+
+// app.get("/Listings", function(req,res){
+//   res.render('Listings',{layout:false});
+// });
+
+// app.get("/contact", function(req,res){
+//   res.render('contact',{layout:false});
+// });
+// app.get("/dashboard", function(req,res){
+//   res.render('dashboard',{layout:false});
+// });
+
+
+// //this should be the name tag on the photo upload input tag in form  
+// app.post("/contact-form-process",upload.none(), (req,res)=> {
+//   var FORM_DATA = req.body ; //only text 
+
+//     var mailOptions =  {
+//       from: 'webb322assigment2@gmail.com',
+//       to: FORM_DATA.email ,    
+//       subject: 'Welcome to StayAnywhere',
+//       html: '<p>Hello ' +  ":<p>Thank you for staying with us</p>"
+//     }
     
-      transporter.sendMail(mailOptions,(error,info) =>{
-        if(error){
-        console.log("ERROR: "+ error);
-        }else{
-          console.log("Email sent: " +info.response ); 
-        }
-      }); 
+//       transporter.sendMail(mailOptions,(error,info) =>{
+//         if(error){
+//         console.log("ERROR: "+ error);
+//         }else{
+//           console.log("Email sent: " +info.response ); 
+//         }
+//       }); 
 
-      res.render('dashboard',{
-        data: FORM_DATA,
-        layout:false
-      });
+//       res.render('dashboard',{
+//         data: FORM_DATA,
+//         layout:false
+//       });
 
-});
+// });
 
 // setup http server to listen on HTTP_PORT
-app.listen(HTTP_PORT, onHttpStart);
+// app.listen(HTTP_PORT, onHttpStart);
