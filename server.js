@@ -33,8 +33,8 @@ function onHttpStart() {
 app.engine(".hbs", exphbs({ extname: ".hbs" }));
 app.set("view engine", ".hbs");
 
-app.use(express.static("views"));
-app.use(express.static("public"));
+app.use(express.static("views/"));
+app.use(express.static("public/"));
 
 // setup a 'route' to listen on the default url path 
 app.get("/", (req,res) => {
