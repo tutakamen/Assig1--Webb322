@@ -10,6 +10,45 @@ var path = require("path");
 var multer = require("multer");
 var nodemailer = require("nodemailer");
 const exphbs = require("express-handlebars");
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+var  mongoose  = require("mongoose")  ; 
+var  Schema  = mongoose.Schema  ; 
+var UserModel = require("./models/userModel"); 
+const config  = require("./js/config"); 
+
+var db = mongoose.createConnection( config.dbconn  , { useNewUrlParser: true ,useUnifiedTopology: true } ) ; 
+
+var  bambi  = new UserModel({
+  userName: config.userName,
+  fname:  "mustafa",
+  lname :  "Bukhari",
+  SIN : 999999999,
+  DOB:  new Date()
+});  
+
+bambi.save((err)=>{
+  if(err){
+      console.log("There was an error creating bambi ${err} ")  ; 
+  }else{
+      console.log("You are saved - Bambi !!!!!!!") ;  
+
+      UserModel.findOne({fname: "mustafa"})
+      .exec()
+      .then((usr)=>{
+      
+          if(!usr){console.log("The user could not be found!");
+          }else{
+          console.log(usr);
+      }
+      process.exit();  //dont do this on website 
+  })
+  .catch((err)  => {console.log("An error occured ${err}");});
+}
+});
+*/
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 var HTTP_PORT = process.env.PORT || 8080;
 
@@ -43,6 +82,14 @@ app.get("/about", (req,res) => {
   res.render('about',{layout:false}); 
 });
 
+app.get("/login", function(req,res){
+  res.render('login',{layout:false});
+});
+
+app.get("/search", function(req,res){
+  res.render('search',{layout:false});
+});
+
 app.get("/Listings", function(req,res){
   res.render('Listings',{layout:false});
 });
@@ -53,10 +100,6 @@ app.get("/contact", function(req,res){
 app.get("/dashboard", function(req,res){
   res.render('dashboard',{layout:false});
 });
-
-
-
-
 
 
 //this should be the name tag on the photo upload input tag in form  

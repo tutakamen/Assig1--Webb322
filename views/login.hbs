@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> header}}      
+
+<body>
+    <img src="Images/StayAnywhere Logo.jpg" alt="logo" class="logo1">
+{{> nav}}      
+
+
+<form name="signUp"   class="modal-content" action="/action_page.php">
+  <div class="container">
+  
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required>
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+    <label>
+      <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+    </label>
+    <div class="clearfix">
+      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+      <button type="submit" class="signup">Sign Up</button>
+    </div>
+  </div>
+</form>
+
+
+
+
+{{> footer}}      
+
+</body>
+
+</html>
