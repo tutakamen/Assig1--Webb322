@@ -10,21 +10,10 @@ var app = express();
 var path = require("path");
 var multer = require("multer");
 var nodemailer = require("nodemailer");
-const bodyParser = require('body-parser');//needed  ? 
 const exphbs = require("express-handlebars");
 
 var HTTP_PORT = process.env.PORT || 8080;
 
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// const STORAGE = multer.diskStorage({
-//   destination: "./public/data/", 
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now() + path.extname(file.originalname)); //this line may not be needed 
-//   }
-// });
-
-// const UPLOAD = multer({storage: STORAGE}); 
 var upload = multer({ dest: './public/data/' })
 
 var transporter = nodemailer.createTransport({
@@ -73,7 +62,7 @@ app.post("/contact-form-process",upload.none(), (req,res)=> {
       from: 'webb322assigment2@gmail.com',
       to: FORM_DATA.email ,    
       subject: 'Welcome to StayAnywhere',
-      html: '<p>Hello' +  +FORM_DATA.fname  +  ":<p>Thank you for staying with us</p>"
+      html: '<p>Hello ' +  ":<p>Thank you for staying with us</p>"
     }
     
       transporter.sendMail(mailOptions,(error,info) =>{
@@ -90,7 +79,6 @@ app.post("/contact-form-process",upload.none(), (req,res)=> {
       });
 
 });
-
 
 // setup http server to listen on HTTP_PORT
 app.listen(HTTP_PORT, onHttpStart);
