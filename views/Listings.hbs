@@ -2,73 +2,9 @@
 <html lang="en">
 {{> header}}      
 
-
-
 <body>
     <img src="Images/StayAnywhere Logo.jpg" alt="logo" class="logo1">
 {{> nav}}      
-</div>
-
-
-<div id="bg-modal" class="modal" >
-  <span onclick="document.getElementById('bg-modal').style.display='none'" class="close" title="Close Modal">X</span>
-  <p id="d1"></p>
-  <p id="d2"></p>
-  <p id="d3"></p>
-  <p id="d4"></p>
-</div>
-<div id="id02" class="modal">
-<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">X</span>
-<form class="modal-content" action="/action_page.php">
-  <div class="container">
-    
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" required>
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-
-
-    <label>
-      <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
-    </label>
-
-    <div class="clearfix">
-      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-      <button type="submit" class="signup">Sign Up</button>
-    </div>
-  </div>
-</form>
-</div>
-<div id="id03" class="modal">
-<span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">X</span>
-<form class="modal-content" action="/action_page.php">
-  <div class="container">      
-    <label for="start">Start date:</label>
-    <input type="date" id="start" name="trip-start" min="2020-10-08" max="2021-12-31">
-
-
-    <label for="end">End date:</label>
-    <input type="date" id="end" name="trip-start" min="2020-10-08" max="2021-12-31">
-
-    <label for="guests1">Number of guests:</label>
-    <input type="number" id="guests" name="guestsnumber" min="1" max="13">
-
-    <label for="cities"> Location:</label>
-    <select id="cities" name="cities">
-      <option value="Toronto">Toronto</option>
-      <option value="Calgary">Calgary</option>
-      <option value="Montreal">Montreal</option>
-      <option value="Port Perry">Port Perry</option>
-    </select>
-
-    <div class="clearfix">
-      <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
-      <button type="submit" class="signup">Search</button> 
-    </div>
-  </div>
-</form>
-</div>
 
 
 <section>
@@ -80,7 +16,7 @@
       <div class="grid-item"><img src="Images/pexels-mike-463996.jpg" alt="cant see" ><p>Toronto -$130/night </p></div>
       <div class="grid-item"><img src="Images/pexels-skitterphoto-794.jpg" alt="cant see" ><p>Halifax -$420/night </p></div>
     </div>
-  </section>
+</section>
 
 
 {{> footer}}      
