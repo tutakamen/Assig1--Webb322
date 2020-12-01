@@ -4,7 +4,6 @@ In the video you zoomed the bwoser to make it look like it was working where it 
 Your form processing does not work it does not post 
 correctly and therefore I could not test the email nor the dashboard features
 */
-
 var express = require("express"); 
 var app = express();
 var path = require("path");
@@ -33,15 +32,17 @@ function onHttpStart() {
 app.engine(".hbs", exphbs({ extname: ".hbs" }));
 app.set("view engine", ".hbs");
 
-app.use(express.static("views/"));
-app.use(express.static("public/"));
+app.use(express.static("views"));
+app.use(express.static("public"));
 
 // setup a 'route' to listen on the default url path 
 app.get("/", (req,res) => {
   res.render('Home',{layout:false}); 
-
 });
-  
+app.get("/about", (req,res) => {
+  res.render('about',{layout:false}); 
+});
+
 app.get("/Listings", function(req,res){
   res.render('Listings',{layout:false});
 });
@@ -49,10 +50,14 @@ app.get("/Listings", function(req,res){
 app.get("/contact", function(req,res){
   res.render('contact',{layout:false});
 });
-
 app.get("/dashboard", function(req,res){
   res.render('dashboard',{layout:false});
 });
+
+
+
+
+
 
 //this should be the name tag on the photo upload input tag in form  
 app.post("/contact-form-process",upload.none(), (req,res)=> {

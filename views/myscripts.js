@@ -50,7 +50,3 @@ function validatePassword(){
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
   
-
-window.onclick = function(event) {
-document.getElementById("dashBoard").innerHTML = "Hey there " ;
-}
