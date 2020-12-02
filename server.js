@@ -11,51 +11,50 @@ var multer = require("multer");
 var nodemailer = require("nodemailer");
 const exphbs = require("express-handlebars");
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// var  mongoose  = require("mongoose")  ; 
+// var  Schema  = mongoose.Schema  ; 
+// var UserModel = require("./models/userModel"); 
+// const config  = require("./js/config"); 
 
 
+// var db = mongoose.connect( config.dbconn  , { useNewUrlParser: true ,useUnifiedTopology: true } ) ; 
 
 
+// mongoose.Promise = require("bluebird");
 
-var  mongoose  = require("mongoose")  ; 
-var  Schema  = mongoose.Schema  ; 
-var UserModel = require("./models/userModel"); 
-const config  = require("./js/config"); 
+// mongoose.connection.on("open",()=>{
+//     console.log("Working");
+// });
 
-var db = mongoose.connect( config.dbconn  , { useNewUrlParser: true ,useUnifiedTopology: true } ) ; 
+// var  Clint  = new UserModel({
+//     userName: config.userName,
+//     fname:  "mustafa",
+//     lname :  "Bukhari",
+//     SIN : 999999999,
+//     DOB: new Date()
+// });  
 
-mongoose.connection.on("open",()=>{
-    console.log("Working");
-});
-
-var  Clint  = new UserModel({
-    userName: config.userName,
-    fname:  "mustafa",
-    lname :  "Bukhari",
-    SIN : 999999999,
-    DOB: new Date()
-});  
-
-Clint.save((err) => {
-    if(err) {
-      console.log("There was an error saving the  shit");
-    } else {
-        console.log("saved to the web322e collection");
-        UserModel.findOne({ fname: "mustafa" })
-        .exec()
-        .then((UserModel) => {
-            if(!UserModel) {
-                console.log("No could be found");
-            } else {
-                console.log(UserModel);
-            }
-            // exit the program after saving and finding
-            process.exit();//dont do this on website
-        })
-        .catch((err) => {
-            console.log(`There was an error: ${err}`);
-        });
-    }   
-});
+// Clint.save((err) => {
+//     if(err) {
+//       console.log("There was an error saving the  shit");
+//     } else {
+//         console.log("saved to the web322e collection");
+//         UserModel.findOne({ fname: "mustafa" })
+//         .exec()
+//         .then((UserModel) => {
+//             if(!UserModel) {
+//                 console.log("No could be found");
+//             } else {
+//                 console.log(UserModel);
+//             }
+//             // exit the program after saving and finding
+//             process.exit();//dont do this on website
+//         })
+//         .catch((err) => {
+//             console.log(`There was an error: ${err}`);
+//         });
+//     }   
+// });
 
 
 
