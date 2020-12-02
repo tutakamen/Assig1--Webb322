@@ -10,7 +10,7 @@ var path = require("path");
 var multer = require("multer");
 var nodemailer = require("nodemailer");
 const exphbs = require("express-handlebars");
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const clientSessions = require("client-sessions")
 var  mongoose  = require("mongoose")  ; 
 var  Schema  = mongoose.Schema  ; 
 var UserModel = require("./models/userModel"); 
@@ -23,19 +23,6 @@ mongoose.Promise = require("bluebird");
 mongoose.connection.on("open",()=>{
     console.log("Working");
 });
-
-// var  Clint  = new UserModel({
-//     userName: config.userName,
-//     fname:  "mustafa",
-//     lname :  "Bukhari",
-//     SIN : 999999999,
-//     DOB: new Date()
-// });  
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 var HTTP_PORT = process.env.PORT || 8080;
 
@@ -61,6 +48,13 @@ app.set("view engine", ".hbs");
 app.use(express.static("views"));
 app.use(express.static("public"));
 
+app.use(clientSessions({
+  cookieName: "session",
+  secret: "web322_week9_sessionDemo",
+  duration: 2*60*1000, 
+  activeDuration: 1000*60
+})); 
+
 // setup a 'route' to listen on the default url path 
 app.get("/", (req,res) => {
   res.render('Home',{layout:false}); 
@@ -69,9 +63,6 @@ app.get("/about", (req,res) => {
   res.render('about',{layout:false}); 
 });
 
-app.get("/login", function(req,res){
-  res.render('login',{layout:false});
-});
 
 app.get("/search", function(req,res){
   res.render('search',{layout:false});
@@ -87,6 +78,46 @@ app.get("/contact", function(req,res){
 app.get("/dashboard", function(req,res){
   res.render('dashboard',{layout:false});
 });
+
+app.get("/login", function(req,res){
+  res.render('login',{layout:false});
+});
+
+//creating user, must replace this with  a find mongodb once works 
+const user = {
+  username:"mustafabukhari99@gmail.com",
+  password:"Winter22",
+  email: "mustafabukhari99@gmail.com"
+}
+
+app.post("/login",upload.none(), (req,res)=>{
+  
+  const username =  req.body.email ; 
+  const password =  req.body.email ; 
+  //serverside validation
+  if(username===""|| password === ""){
+    return res.render("login",{errorMsg: "Both fields are required"}); 
+  }
+  if(username === user.username|| password === user.password ){
+    req.session.user = {
+      username:user.username,
+      email:user.email
+    };
+    return res.redirect("/dashboard"); 
+  }else{
+    res.render("login", {errorMsg: "login and password dont match",layout:false});
+  }
+
+
+
+  
+  
+  
+});
+
+
+
+
 
 
 //this should be the name tag on the photo upload input tag in form  
