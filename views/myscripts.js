@@ -8,7 +8,7 @@ function validateFormEmail() {
   }
   
   function validateFormPassword() {
-    var x = document.forms["signUp"]["psw"].value;
+    var x = document.forms["signUp"]["password"].value;
     if (x == "") {
       alert("Password must be filled out");
       return false;
@@ -18,7 +18,7 @@ function validateFormEmail() {
 //Form Validation---REGISTRATION FORM 
 //making s ure password and repeat password are the same 
 
-var password = document.getElementById("psw")
+var password = document.getElementById("password")
 var confirm_password = document.getElementById("confirm_password");
 
 function validatePassword(){
