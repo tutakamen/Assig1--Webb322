@@ -97,7 +97,7 @@ app.post("/contact-form-process",upload.none(), (req,res)=> {
       from: 'webb322assigment2@gmail.com',
       to: FORM_DATA.email ,    
       subject: 'Welcome to StayAnywhere',
-      html: '<p>Hello' + JSON.stringigy(req.body.fname) +  ":<p>Thank you for staying with us</p>"
+      html: `Hello ${req.body.fname}, welcome to StayAnywhere! `
     }
     
       transporter.sendMail(mailOptions,(error,info) =>{

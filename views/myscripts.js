@@ -30,4 +30,11 @@ function validatePassword(){
 }
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
+
+
+
+
+// There's only one possible reason for that error message, document.getElementById("drop") does not return the element, and the only reason for that is that the element doesn't exists, but in the HTML it clearly does, so the script must be running before the elements in the DOM.
+
+
   
