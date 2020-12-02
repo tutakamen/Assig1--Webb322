@@ -93,18 +93,20 @@ const user = {
 app.post("/login",upload.none(), (req,res)=>{
   
   const username =  req.body.email ; 
-  const password =  req.body.email ; 
+  const password =  req.body.password ; 
   //serverside validation
   if(username===""|| password === ""){
-    return res.render("login",{errorMsg: "Both fields are required"}); 
+    return res.render("login",{errorMsg: "Both fields are required"});  //already done this on hbs page
   }
-  if(username === user.username|| password === user.password ){
+
+  if(username === user.username && password === user.password ){
     req.session.user = {
       username:user.username,
       email:user.email
     };
     return res.redirect("/dashboard"); 
-  }else{
+  }
+  else{
     res.render("login", {errorMsg: "login and password dont match",layout:false});
   }
 

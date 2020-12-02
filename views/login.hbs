@@ -6,8 +6,14 @@
     <img src="Images/StayAnywhere Logo.jpg" alt="logo" class="logo1">
 {{> nav}}      
 
+{{#if errorMsg}}
+<h2>{{errorMsg}}</h2>
+{{else}}
+<h2> Please Login below</h2>
+{{/if }}
 
-<form name="signUp"   class="modal-content" action="/action_page.php">
+
+<form name="signUp" class="modal-content" action="/login" method="POST" enctype="multipart/form-data">
   <div class="container">
   
     <label for="email"><b>Email</b></label>
@@ -17,10 +23,7 @@
     <label>
       <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
     </label>
-    <div class="clearfix">
-      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-      <button type="submit" class="signup">Sign Up</button>
-    </div>
+      <button type="submit" class="signup">Login</button>
   </div>
 </form>
 
