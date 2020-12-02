@@ -55,40 +55,52 @@ app.use(clientSessions({
   activeDuration: 1000*60
 })); 
 
-// setup a 'route' to listen on the default url path 
-app.get("/", (req,res) => {
-  res.render('Home',{layout:false}); 
-});
-app.get("/about", (req,res) => {
-  res.render('about',{layout:false}); 
-});
-
-
-app.get("/search", function(req,res){
-  res.render('search',{layout:false});
-});
-
-app.get("/Listings", function(req,res){
-  res.render('Listings',{layout:false});
-});
-
-app.get("/contact", function(req,res){
-  res.render('contact',{layout:false});
-});
-app.get("/dashboard", function(req,res){
-  res.render('dashboard',{layout:false});
-});
-
-app.get("/login", function(req,res){
-  res.render('login',{layout:false});
-});
-
 //creating user, must replace this with  a find mongodb once works 
 const user = {
   username:"mustafabukhari99@gmail.com",
-  password:"Winter22",
+  password: "Winter22",
   email: "mustafabukhari99@gmail.com"
 }
+
+function checkLogin(req,res,next){  //must add admin logic 
+  if(!req.session.user){
+    res.redirect("/login");
+  } else {
+    next(); 
+  }
+}
+
+
+// setup a 'route' to listen on the default url path 
+app.get("/", (req,res) => {
+  res.render('Home',{user:req.session.user , layout:false}); 
+});
+app.get("/about", (req,res) => {
+  res.render('about',{user:req.session.user , layout:false}); 
+});
+
+app.get("/search", function(req,res){
+  res.render('search',{user:req.session.user ,layout:false});
+});
+
+app.get("/Listings", function(req,res){
+  res.render('Listings',{user:req.session.user ,layout:false});
+});
+
+app.get("/contact", function(req,res){
+  res.render('contact',{user:req.session.user ,layout:false});
+});
+
+app.get("/login", function(req,res){
+  res.render('login',{user:req.session.user, layout:false});
+});
+
+
+app.get("/dashboard", checkLogin ,function(req,res){
+  res.render('dashboard',{
+    user:req.session.user, 
+    layout:false});
+});
 
 app.post("/login",upload.none(), (req,res)=>{
   
@@ -96,7 +108,7 @@ app.post("/login",upload.none(), (req,res)=>{
   const password =  req.body.password ; 
   //serverside validation
   if(username===""|| password === ""){
-    return res.render("login",{errorMsg: "Both fields are required"});  //already done this on hbs page
+    return res.render("login",{ errorMsg: "Both fields are required" , user:req.session.user, layout:false });  //already done this on hbs page
   }
 
   if(username === user.username && password === user.password ){
@@ -107,19 +119,9 @@ app.post("/login",upload.none(), (req,res)=>{
     return res.redirect("/dashboard"); 
   }
   else{
-    res.render("login", {errorMsg: "login and password dont match",layout:false});
+    res.render("login", {errorMsg: "login and password dont match",user:req.session.user,layout:false});
   }
-
-
-
-  
-  
-  
 });
-
-
-
-
 
 
 //this should be the name tag on the photo upload input tag in form  
@@ -157,14 +159,17 @@ app.post("/contact-form-process",upload.none(), (req,res)=> {
     });
 
       res.render('dashboard',{
-        data: FORM_DATA,
+        data: FORM_DATA, //try change data to user
         layout:false
       });
 
 });
 
 
-
+app.get("/logout", (req,res)=>{
+  req.session.reset(); 
+  res.redirect("/");
+}); 
 
 
 // setup http server to listen on HTTP_PORT
