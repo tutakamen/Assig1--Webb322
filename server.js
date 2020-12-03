@@ -16,7 +16,7 @@ var  Schema  = mongoose.Schema  ;
 var UserModel = require("./models/userModel"); 
 const config  = require("./js/config"); 
 
-var db = mongoose.connect( config.dbconn  , { useNewUrlParser: true ,useUnifiedTopology: true } ) ; 
+var db = mongoose.connect( config.dbconn  , { useNewUrlParser: true ,useUnifiedTopology: true } ) ; //can remove db 
 
 mongoose.Promise = require("bluebird");
 
@@ -157,7 +157,7 @@ app.post("/contact-form-process",upload.none(), (req,res)=> {
           console.log("saved to the web322e collection");
       }   
     });
-
+    //mongoose.disconnect;  //try adding this :06 class11/26   
       res.render('dashboard',{
         data: FORM_DATA, //try change data to user
         layout:false
