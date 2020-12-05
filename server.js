@@ -19,6 +19,7 @@ var UserModel = require("./models/userModel");
 const config  = require("./js/config"); 
 var bodyParser = require("body-parser");
 require('dotenv').config()
+const bcrypt = require('bcryptjs');
 
 /* #endregion */
 
