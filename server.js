@@ -48,22 +48,12 @@ var transporter = nodemailer.createTransport({
   auth: {
     user: 'webb322assigment2@gmail.com',
     pass:  config.GmailPassword
-    // pass: 'Winter2020'
   }
 })
 
 // call this function after the http server starts listening for requests
 function onHttpStart() {
   console.log("Express http server listening on: " + HTTP_PORT);
-}
-
-//creating user, must replace this with  a find mongodb once works 
-const user = {
-  Admin: true  , 
-  fname : "Mustafa",
-  lname : "Bukhari",
-  password: "Winter22",
-  email: "mustafabukhari99@gmail.com"
 }
 
 function checkLogin(req,res,next){  //must add admin logic 
