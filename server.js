@@ -21,7 +21,10 @@ var bodyParser = require("body-parser");
 require('dotenv').config()
 const bcrypt = require('bcryptjs');
 
+
 /* #endregion */
+
+const saltRounds = 2;
 
 
 /* #region mongoose_connections */
@@ -214,6 +217,8 @@ app.post("/contact-form-process",upload.none(), (req,res)=> {
           console.log("Email sent: " +info.response ); 
         }
       }); 
+      
+      bcrypt.hash(req.body.passwordsignup, saltRounds, function (err,   hash) {
 
       var incomingData  = new UserModel({
         admin: false,
@@ -277,14 +282,6 @@ app.post("/contact-form-process",upload.none(), (req,res)=> {
    });
    
    /* #endregion */
-   
-
-
-
-
-
-
-
 
 // setup http server to listen on HTTP_PORT
 app.listen(HTTP_PORT, onHttpStart);
