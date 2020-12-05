@@ -107,7 +107,7 @@ app.get("/Listings", function(req,res){
 });
 
 app.get("/contact", function(req,res){
-  res.render('contact',{user:req.session.user ,layout:false});
+  res.render('contact',{user:req.session.user ,  layout:false});
 });
 
 app.get("/login", function(req,res){
@@ -130,7 +130,8 @@ app.post("/login",upload.none(), (req,res)=>{
           res.render("login", {errorMsg: "login does not exist!", layout: false});
       } else {
           // user exists
-          if (password === usr.password){
+          const validPassword = bcrypt.compare(req.body.password, usr.password);
+          if (validPassword){
               req.session.user = {//creating session variable 
                   email: usr.email,
                   fname: usr.fname,
@@ -210,31 +211,35 @@ app.post("/contact-form-process",upload.none(), (req,res)=> {
       html: `Hello ${FORM_DATA.fname}, welcome to StayAnywhere!`
     }
     
-      transporter.sendMail(mailOptions,(error,info) =>{
+    transporter.sendMail(mailOptions,(error,info) =>{
         if(error){
         console.log("ERROR: "+ error);
         }else{
           console.log("Email sent: " +info.response ); 
         }
       }); 
-      
-      bcrypt.hash(req.body.passwordsignup, saltRounds, function (err,   hash) {
 
-      var incomingData  = new UserModel({
-        admin: false,
-        fname: req.body.fname,
-        lname:  req.body.lname,
-        email :  req.body.email,
-        password : req.body.password,
-    });  
-    
-    incomingData.save((err) => {
-      if(err) {
-        console.log("There was an error saving the shit");
-      } else {
-          console.log("saved to the web322e collection");
-      }   
-    });
+
+                  bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
+
+                  var incomingData  = new UserModel({
+                      admin: false,
+                      fname: req.body.fname,
+                      lname:  req.body.lname,
+                      email :  req.body.email,
+                      password : hash,
+                  });  
+
+                  incomingData.save((err) => {
+                    if(err) {
+                      console.log("There was an error saving the shit");
+                    } else {
+                        console.log("saved to the web322e collection");
+                    }   
+                  });
+              
+                  }) ; 
+                          
 
     res.render('dashboard',{
         user: FORM_DATA, //try change data to user
