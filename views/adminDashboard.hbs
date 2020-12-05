@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> header}}      
+
+<body>
+    <img src="Images/StayAnywhere Logo.jpg" alt="logo" class="logo1">
+{{> nav}}      
+</div>
+
+
+<h1>Welcome to StayAnywhere</h1>
+<h3>You are admin  </h3>
+
+<h2 id="dashBoard"></h2>
+      
+<p> admin {{user.admin}}</p>
+<p> {{user.fname}}</p>
+<p> {{user.lname}}</p>
+<p> {{user.email}}</p>
+<p> {{user.password}}</p>
+
+<a href="/logout">Logout</a>  |     <a href="/">Home</a>
+
+{{> footer}}      
+
+</body>
+
+</html>

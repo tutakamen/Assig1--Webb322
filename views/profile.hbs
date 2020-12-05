@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+
+    {{> header user}}
+
+
+<body>
+    <label class="fixedlabel">First Name:</label>{{user.fname}}<br/>
+    <label class="fixedlabel">Last Name:</label>{{user.lname}}<br/>
+    <label class="fixedlabel">E-mail:</label>{{user.email}}<br/>
+    <label class="fixedlabel">Is Administrator:</label>{{user.admin}}<br/>
+    <a href="/profile/edit">Edit</a>
+    {{> footer user}}
+</body> 
+</html> 

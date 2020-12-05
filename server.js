@@ -17,11 +17,13 @@ var  mongoose  = require("mongoose")  ;
 var  Schema  = mongoose.Schema  ; 
 var UserModel = require("./models/userModel"); 
 const config  = require("./js/config"); 
+var bodyParser = require("body-parser");
+require('dotenv').config()
+
 /* #endregion */
 
 
 /* #region mongoose_connections */
-
 
 var db = mongoose.connect( config.dbconn  , { useNewUrlParser: true ,useUnifiedTopology: true } ) ; //can remove db 
 
@@ -33,6 +35,9 @@ mongoose.connection.on("open",()=>{
 
 /* #endregion */
 
+app.use(bodyParser.urlencoded({extended: false }));
+
+
 var HTTP_PORT = process.env.PORT || 8080;
 
 var upload = multer({ dest: './public/data/' })
@@ -41,7 +46,8 @@ var transporter = nodemailer.createTransport({
   service: 'gmail', 
   auth: {
     user: 'webb322assigment2@gmail.com',
-    pass: 'Winter2020'
+    pass:  config.GmailPassword
+    // pass: 'Winter2020'
   }
 })
 
@@ -61,12 +67,19 @@ const user = {
 
 function checkLogin(req,res,next){  //must add admin logic 
   if(!req.session.user){
-    res.redirect("/dashboard");
+    res.redirect("/login");
   } else {
     next(); 
   }
 }
 
+function checkAdmin(req,res,next){  //use to check whetehr admin or not.  
+  if(!req.session.user.admin){
+    res.redirect("/dashboard");
+  } else {
+    next(); 
+  }
+}
 
 /* #region app.get_Engines */
 
@@ -126,11 +139,15 @@ app.post("/login",upload.none(), (req,res)=>{
           if (password === usr.password){
               req.session.user = {//creating session variable 
                   email: usr.email,
-                  firstName: usr.fname,
-                  lastName: usr.lname,
-                  isAdmin: usr.admin
+                  fname: usr.fname,
+                  lname: usr.lname,
+                  admin: usr.admin
               };
-              res.redirect("/dashboard");
+              if (usr.admin) {
+                res.redirect("/adminDashboard");
+              }else{
+                res.redirect("/dashboard");
+              }
           } else {
               res.render("login", {errorMsg: "login and password does not match!", layout: false});
           };
@@ -145,6 +162,12 @@ app.post("/login",upload.none(), (req,res)=>{
 
 app.get("/dashboard", checkLogin ,function(req,res){
   res.render('dashboard',{
+    user:req.session.user, 
+    layout:false});
+});
+
+app.get("/adminDashboard", checkLogin ,function(req,res){
+  res.render('adminDashboard',{
     user:req.session.user, 
     layout:false});
 });
@@ -182,13 +205,6 @@ app.get("/firstrunsetup", (req,res)=> {
 /* #region app.post_Engines */
 
 
-
-
-
-
-
-
-
 //this should be the name tag on the photo upload input tag in form  
 app.post("/contact-form-process",upload.none(), (req,res)=> {
   var FORM_DATA = req.body ; //only text 
@@ -218,7 +234,7 @@ app.post("/contact-form-process",upload.none(), (req,res)=> {
     
     incomingData.save((err) => {
       if(err) {
-        console.log("There was an error saving the  shit");
+        console.log("There was an error saving the shit");
       } else {
           console.log("saved to the web322e collection");
       }   
@@ -233,27 +249,28 @@ app.post("/contact-form-process",upload.none(), (req,res)=> {
 
 /* #endregion  */
 
-    /* #region PROFILES */
-    app.get("/Profile", checkLogin, (req,res)=>{
-      res.render("Profile", {user: req.session.user, layout: false});
+/* #region PROFILES */
+    app.get("/profile", checkLogin, (req,res)=>{
+      res.render("profile", {user: req.session.user, layout: false});
    });
    
-   app.get("/Profile/Edit", ensureLogin, (req,res)=>{
-       res.render("ProfileEdit", {user: req.session.user, layout: false});
+   app.get("/profile/edit", checkLogin, (req,res)=>{
+       res.render("profileedit", {user: req.session.user, layout: false});
    });
    
-   app.post("/Profile/Edit", ensureLogin, (req,res) => {
-       const firstName = req.body.fname;
-       const lastName = req.body.lastname;
+   app.post("/profile/edit",upload.none(), checkLogin, (req,res) => { //  multer  none 
+       const firstName = req.body.fname ;//problem here 
+       const lastName = req.body.lname;
        const Email = req.body.email;
+       const OldEmail = req.body.oldEmail;
        const admin = (req.body.admin === "on");
        UserModel.updateOne(
-           { email: Email },
-           {$set: {
-               fname: firstName,
-               lname: lastName,
-               email: Email,
-               admin: true
+           { email: OldEmail },//old email to find what to update
+           {$set: { // updating values    
+            admin: true,
+            fname: firstName, 
+            lname: lastName,
+            email: Email  
            }}
        ).exec()
        .then(()=>{
@@ -263,7 +280,7 @@ app.post("/contact-form-process",upload.none(), (req,res)=> {
             email: Email,
             admin: true
         };
-           res.redirect("/Profile");
+           res.redirect("/profile");
        });
        
    });
