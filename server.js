@@ -1,10 +1,3 @@
-/*
-your responsive design is NOT completed.  
-In the video you zoomed the bwoser to make it look like it was working where it does not when I view it live
-Your form processing does not work it does not post 
-correctly and therefore I could not test the email nor the dashboard features
-*/
-
 /* #region REQUIRES */
 var express = require("express"); 
 var app = express();
@@ -14,22 +7,20 @@ var nodemailer = require("nodemailer");
 const exphbs = require("express-handlebars");
 const clientSessions = require("client-sessions")
 var  mongoose  = require("mongoose")  ; 
-var  Schema  = mongoose.Schema  ; 
-var UserModel = require("./models/userModel"); 
 const config  = require("./js/config"); 
 var bodyParser = require("body-parser");
 require('dotenv').config()
 const bcrypt = require('bcryptjs');
-
-//Photo  Uploading
 const _ = require ("underscore"); 
 const fs = require("fs"); 
-const userRoom = require("./models/userRoom");
+
 const PHOTODIRECTORY = "./public/photos/";
 
-/* #endregion */
+const userRoom = require("./models/userRoom");
+var  Schema  = mongoose.Schema  ; 
+var UserModel = require("./models/userModel"); 
 
-const saltRounds = 2;
+/* #endregion */
 
 /* #region mongoose_connections */
 
@@ -43,10 +34,12 @@ mongoose.connection.on("open",()=>{
 
 /* #endregion */
 
+/* #region Utility declaration and functions  */
 if (!fs.existsSync(PHOTODIRECTORY)) {
   fs.mkdirSync(PHOTODIRECTORY);
 }
 
+const saltRounds = 2;
 
 const storage = multer.diskStorage({
   destination: PHOTODIRECTORY,
@@ -56,7 +49,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
 
 app.use(bodyParser.urlencoded({extended: false }));
 
@@ -72,7 +64,6 @@ var transporter = nodemailer.createTransport({
   }
 })
 
-// call this function after the http server starts listening for requests
 function onHttpStart() {
   console.log("Express http server listening on: " + HTTP_PORT);
 }
@@ -93,13 +84,20 @@ function checkAdmin(req,res,next){  //use to check whetehr admin or not.
   }
 }
 
-/* #region app.get_Engines */
+/* #endregion */
 
+/* #region app.get/POST Engines */
+    
+    /* #region static_setup */
 app.engine(".hbs", exphbs({ extname: ".hbs" }));
 app.set("view engine", ".hbs");
 
 app.use(express.static("views"));
 app.use(express.static("public"));
+
+      /* #endregion */
+
+    /* #region Session */
 
 app.use(clientSessions({
   cookieName: "session",
@@ -108,7 +106,9 @@ app.use(clientSessions({
   activeDuration: 1000*60
 })); 
 
-// setup a 'route' to listen on the default url path 
+
+      /* #endregion */
+
 app.get("/", (req,res) => {
   res.render('Home',{user:req.session.user , layout:false}); 
 });
@@ -122,10 +122,6 @@ app.get("/search", function(req,res){
 
 app.get("/Listings", function(req,res){
   res.render('Listings',{user:req.session.user ,layout:false});
-});
-
-app.get("/contact", function(req,res){
-  res.render('contact',{user:req.session.user ,  layout:false});
 });
 
 app.get("/login", function(req,res){
@@ -246,11 +242,9 @@ app.post("/createListings", upload.single("photo"), (req, res) => {
   });
 });
 
-
-/* #endregion */
-
-/* #region app.post_Engines */
-
+app.get("/contact", function(req,res){
+  res.render('contact',{user:req.session.user ,  layout:false});
+});
 
 app.post("/contact-form-process",upload.none(), (req,res)=> {
   var FORM_DATA = req.body ; //only text 
@@ -299,43 +293,40 @@ app.post("/contact-form-process",upload.none(), (req,res)=> {
 
 });
 
-/* #endregion  */
+app.get("/profile", checkLogin, (req,res)=>{
+  res.render("profile", {user: req.session.user, layout: false});
+});
 
-/* #region PROFILES */
-    app.get("/profile", checkLogin, (req,res)=>{
-      res.render("profile", {user: req.session.user, layout: false});
-   });
-   
-   app.get("/profile/edit", checkLogin, (req,res)=>{
-       res.render("profileedit", {user: req.session.user, layout: false});
-   });
-   
-   app.post("/profile/edit",upload.none(), checkLogin, (req,res) => { //  multer  none 
-       const firstName = req.body.fname ;//problem here 
-       const lastName = req.body.lname;
-       const Email = req.body.email;
-       const OldEmail = req.body.oldEmail;
-       const admin = (req.body.admin === "on");
-       UserModel.updateOne(
-           { email: OldEmail },//old email to find what to update
-           {$set: { // updating values    
-            admin: true,
-            fname: firstName, 
-            lname: lastName,
-            email: Email  
-           }}
-       ).exec()
-       .then(()=>{
-           req.session.user = {
-            fname: firstName,
-            lname: lastName,
-            email: Email,
-            admin: true
-        };
-           res.redirect("/profile");
-       });
-       
-   });
+app.get("/profile/edit", checkLogin, (req,res)=>{
+    res.render("profileedit", {user: req.session.user, layout: false});
+});
+
+app.post("/profile/edit",upload.none(), checkLogin, (req,res) => { //  multer  none 
+    const firstName = req.body.fname ;//problem here 
+    const lastName = req.body.lname;
+    const Email = req.body.email;
+    const OldEmail = req.body.oldEmail;
+    const admin = (req.body.admin === "on");
+    UserModel.updateOne(
+        { email: OldEmail },//old email to find what to update
+        {$set: { // updating values    
+        admin: true,
+        fname: firstName, 
+        lname: lastName,
+        email: Email  
+        }}
+    ).exec()
+    .then(()=>{
+        req.session.user = {
+        fname: firstName,
+        lname: lastName,
+        email: Email,
+        admin: true
+    };
+        res.redirect("/profile");
+    });
+    
+});
    
    /* #endregion */
 
