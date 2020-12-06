@@ -21,11 +21,15 @@ var bodyParser = require("body-parser");
 require('dotenv').config()
 const bcrypt = require('bcryptjs');
 
+//Photo  Uploading
+const _ = require ("underscore"); 
+const fs = require("fs"); 
+const userRoom = require("./models/userRoom");
+const PHOTODIRECTORY = "./public/photos/";
 
 /* #endregion */
 
 const saltRounds = 2;
-
 
 /* #region mongoose_connections */
 
@@ -39,12 +43,26 @@ mongoose.connection.on("open",()=>{
 
 /* #endregion */
 
-app.use(bodyParser.urlencoded({extended: false }));
+if (!fs.existsSync(PHOTODIRECTORY)) {
+  fs.mkdirSync(PHOTODIRECTORY);
+}
 
+
+const storage = multer.diskStorage({
+  destination: PHOTODIRECTORY,
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage: storage });
+
+
+app.use(bodyParser.urlencoded({extended: false }));
 
 var HTTP_PORT = process.env.PORT || 8080;
 
-var upload = multer({ dest: './public/data/' })
+// var upload = multer({ dest: './public/data/' }) //commented to use above one 
 
 var transporter = nodemailer.createTransport({
   service: 'gmail', 
@@ -193,6 +211,40 @@ app.get("/firstrunsetup", (req,res)=> {
   res.redirect("/");
 })
 
+app.get("/createListings", (req, res) => {
+  // send the html view with our form to the client
+  res.render("createListings", { 
+    layout: false // do not use the default Layout (main.hbs)
+  });
+});
+
+app.post("/createListings", upload.single("photo"), (req, res) => {
+  const locals = { 
+    message: "Your photo was uploaded successfully",
+    layout: false // do not use the default Layout (main.hbs)
+  };
+
+  const newRoom = new userRoom({
+    Listing_name: req.body.name,
+    price:req.body.price , 
+    email: req.body.email,
+    city:req.body.city,
+    description: req.body.desc,
+    filename: req.file.filename  
+  });
+
+  newRoom.save()
+  .then((response) => {
+    res.render("dashboard", locals);
+  })
+  .catch((err) => {
+    locals.message = "There was an error uploading your photo";
+
+    console.log(err);
+
+    res.render("dashboard", locals);
+  });
+});
 
 
 /* #endregion */
@@ -200,7 +252,6 @@ app.get("/firstrunsetup", (req,res)=> {
 /* #region app.post_Engines */
 
 
-//this should be the name tag on the photo upload input tag in form  
 app.post("/contact-form-process",upload.none(), (req,res)=> {
   var FORM_DATA = req.body ; //only text 
 

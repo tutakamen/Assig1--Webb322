@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+{{> header}}      
+
+
+
+
+<body>
+      <title>Creating a Room</title>
+{{> nav}}      
+
+  <div style="text-align: center">
+  </div>
+  <div style="margin-bottom:12px;">
+    <a href="/" class="button">Home</a>
+  </div>
+  <div>
+    <p>{{ message }}</p>
+  </div>
+
+  <div style="width:400px;border:1px dashed #6495de;padding:16px;">
+    <form action="/createListings" method="POST" enctype="multipart/form-data">
+      <table>
+        <tr>
+          <td>
+            <label for="name">Listing Name</label>
+          </td>
+          <td>
+            <input id="name" name="name" type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="email">Email</label>
+          </td>
+          <td>
+            <input id="email" name="email" type="text" /><br />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="price">Price per night</label>
+          </td>
+          <td>
+            <input id="price" name="price" type="text" /><br />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="city">City</label>
+          </td>
+          <td>
+            <input id="city" name="city" type="text" /><br />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="desc">Description</label>
+          </td>
+          <td>
+            <input id="desc" name="desc" type="text" /><br />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="photo">Photo</label>
+          </td>
+          <td>
+            <input id="photo" name="photo" type="file" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+          <td>
+            <input type="submit" value="Submit Photo" />
+          </td>
+        </tr>
+    </form>
+  </div>
+
+
+
+  {{> footer}}      
+
+</body>
+
+</html>
