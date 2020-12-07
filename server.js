@@ -19,6 +19,7 @@ const PHOTODIRECTORY = "./public/photos/";
 const userRoom = require("./models/userRoom");
 var  Schema  = mongoose.Schema  ; 
 var UserModel = require("./models/userModel"); 
+const { has } = require("underscore");
 
 /* #endregion */
 
@@ -102,16 +103,15 @@ app.use(express.static("public"));
 app.use(clientSessions({
   cookieName: "session",
   secret: "web322_week9_sessionDemo",
-  duration: 2*60*1000, 
+  duration: 20*60*1000, 
   activeDuration: 1000*60
 })); 
-
-
       /* #endregion */
 
 app.get("/", (req,res) => {
   res.render('Home',{user:req.session.user , layout:false}); 
 });
+
 app.get("/about", (req,res) => {
   res.render('about',{user:req.session.user , layout:false}); 
 });
@@ -141,32 +141,26 @@ app.post("/login",upload.none(), (req,res)=>{
   .exec()// turns this into a promise
   .then((usr) => {
       if (!usr) {
-          res.render("login", {errorMsg: "login does not exist!", layout: false});
+          res.render("login", {errorMsg: "Something incorrect in Login Details!", layout: false});
       } else {
           // user exists
-          const validPassword = bcrypt.compare(req.body.password, usr.password);
-          if (validPassword){
-              req.session.user = {//creating session variable 
-                  email: usr.email,
-                  fname: usr.fname,
-                  lname: usr.lname,
-                  admin: usr.admin
-              };
-              if (usr.admin) {
-                res.redirect("/adminDashboard");
-              }else{
-                res.redirect("/dashboard");
-              }
-          } else {
-              res.render("login", {errorMsg: "login and password does not match!", layout: false});
-          };
+          bcrypt.compare(req.body.password, usr.password).then((isMatch)=>{
+           if(!isMatch){
+            res.render("login", {errorMsg: "login and password does not match!", layout: false}) ; 
+           } else {
+            req.session.user = {//creating session variable 
+              email: usr.email,
+              fname: usr.fname,
+              lname: usr.lname,
+              admin: usr.admin
+            } 
+            res.redirect("/dashboard");
+          }
+        
+          }).catch((err) => { console.log("An error occurred: ${err}")});   
       };
-
   })
   .catch((err) => { console.log("An error occurred: ${err}")});
-
-
-
 });
 
 app.get("/dashboard", checkLogin ,function(req,res){
@@ -175,7 +169,7 @@ app.get("/dashboard", checkLogin ,function(req,res){
     layout:false});
 });
 
-app.get("/adminDashboard", checkLogin ,function(req,res){
+app.get("/adminDashboard", checkLogin,checkAdmin ,function(req,res){
   res.render('adminDashboard',{
     user:req.session.user, 
     layout:false});
@@ -187,31 +181,33 @@ app.get("/logout", (req,res)=>{
 }); 
 
 app.get("/firstrunsetup", (req,res)=> {
-  var Administrator = new UserModel({
-      admin: true, 
-      fname : "Mustafa",
-      lname : "Bukhari",
-      password: "Winter22",
-      email: "mustafabukhari99@gmail.com"
-    });
-  console.log("got here!");
-  Administrator.save((err)=> {
-      console.log("Error: " + err + ';');
-      if (err) {
-          console.log("There was an error creating Clint: " + err);
-      } else {
-          console.log("Admin is created");
-      }
-  });
-  console.log("got here 2!");
-  res.redirect("/");
-})
+                        bcrypt.hash(config.adminPass, saltRounds, function (err, hash) {
+                          var Administrator = new UserModel({
+                            admin: true, 
+                            fname : "Mustafa",
+                            lname : "Bukhari",
+                            password: hash,
+                            email: "mustafabukhari99@gmail.com"
+                          });
+                          console.log(hash);
+                          console.log("got here!");
+                          console.log("got here!");
+                          Administrator.save((err) => {
+                            if(err) {
+                              console.log("There was an error saving the shit");
+                            } else {
+                                console.log("saved to the web322e collection");
+                            }   
+                          });
+                          console.log("got here 2!");
+                          res.redirect("/");
+                        
+                          }) ; 
+}) ; 
 
-app.get("/createListings", (req, res) => {
+app.get("/createListings", checkLogin, checkAdmin,(req, res) => {
   // send the html view with our form to the client
-  res.render("createListings", { 
-    layout: false // do not use the default Layout (main.hbs)
-  });
+  res.render("createListings", {user:req.session.user , layout:false});
 });
 
 app.post("/createListings", upload.single("photo"), (req, res) => {
@@ -263,8 +259,6 @@ app.post("/contact-form-process",upload.none(), (req,res)=> {
           console.log("Email sent: " +info.response ); 
         }
       }); 
-
-
                   bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
 
                   var incomingData  = new UserModel({
@@ -301,7 +295,7 @@ app.get("/profile/edit", checkLogin, (req,res)=>{
     res.render("profileedit", {user: req.session.user, layout: false});
 });
 
-app.post("/profile/edit",upload.none(), checkLogin, (req,res) => { //  multer  none 
+app.post("/profile/edit",upload.none(), checkLogin, (req,res) => { 
     const firstName = req.body.fname ;//problem here 
     const lastName = req.body.lname;
     const Email = req.body.email;
@@ -310,7 +304,7 @@ app.post("/profile/edit",upload.none(), checkLogin, (req,res) => { //  multer  n
     UserModel.updateOne(
         { email: OldEmail },//old email to find what to update
         {$set: { // updating values    
-        admin: true,
+        // admin: true,
         fname: firstName, 
         lname: lastName,
         email: Email  
@@ -321,9 +315,9 @@ app.post("/profile/edit",upload.none(), checkLogin, (req,res) => { //  multer  n
         fname: firstName,
         lname: lastName,
         email: Email,
-        admin: true
+        // admin: true
     };
-        res.redirect("/profile");
+    res.render("profile", {user: req.session.user, layout: false});
     });
     
 });

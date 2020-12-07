@@ -2,16 +2,13 @@
     <ul class="navigation">
         <button> <a href="/about">About</a></button>
         <button> <a href="/Listings">See Listings</a></button>
-
-        {{#if  user}}
-        <p>Hi {{user.username}} </p> | <a href="/logout">Logout</a>
-        {{else}}
-        <button> <a href="/login">Log In</a></button>
-        {{/if }}
-
-
         <button> <a href="/search">Search</a></button>
         <button> <a href="/contact">Register</a></button>
         <button> <a href="/profile">Profile</a></button>
+        {{#if  user}}
+        <button><a href="/logout">Logout</a></button>
+        {{else}}
+        <button> <a href="/login">Log In</a></button>
+        {{/if }}
     </ul>
 </nav>
