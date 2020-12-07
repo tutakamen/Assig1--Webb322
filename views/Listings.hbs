@@ -7,7 +7,30 @@
 {{> nav}}      
 
 
-<section>
+<tbody>
+
+  {{#each room}} 
+  {{roomName}}
+  {{price}}
+  {{description}}
+  {{location}}
+  {{/each }} 
+
+
+</tbody>
+
+{{> footer}}      
+
+</body>
+
+</html>
+
+
+
+
+
+
+{{!-- <section>
     <div class="grid">
       <div class="grid-item"><img src="Images/pexels-binyamin-mellish-1396132.jpg" alt="cant see" class="logo" > <p>Quebec City-$200/night </p></div>
       <div class="grid-item"><img src="Images/pexels-eberhard-grossgasteiger-730981.jpg" alt="cant see"  ><p>Edmonton -$220/night </p></div>
@@ -16,11 +39,4 @@
       <div class="grid-item"><img src="Images/pexels-mike-463996.jpg" alt="cant see" ><p>Toronto -$130/night </p></div>
       <div class="grid-item"><img src="Images/pexels-skitterphoto-794.jpg" alt="cant see" ><p>Halifax -$420/night </p></div>
     </div>
-</section>
-
-
-{{> footer}}      
-
-</body>
-
-</html>
+</section> --}}

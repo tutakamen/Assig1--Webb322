@@ -102,7 +102,7 @@ app.use(express.static("public"));
 
 app.use(clientSessions({
   cookieName: "session",
-  secret: "web322_week9_sessionDemo",
+  secret: "web322_week9_sessionDemo",   //must put this in .env file !!!
   duration: 20*60*1000, 
   activeDuration: 1000*60
 })); 
@@ -120,8 +120,14 @@ app.get("/search", function(req,res){
   res.render('search',{user:req.session.user ,layout:false});
 });
 
+//checkLogin 
 app.get("/Listings", function(req,res){
-  res.render('Listings',{user:req.session.user ,layout:false});
+  // var room  = userRoom.find()
+  // .lean()
+  // .exec()
+  // .then((room)=>{
+    res.render('Listings',{user:req.session.user ,layout:false});//add -> {room: room,hasRoom:!! room.lenght, user:req.session.user ,layout:false}
+  // });
 });
 
 app.get("/login", function(req,res){
@@ -169,12 +175,6 @@ app.get("/dashboard", checkLogin ,function(req,res){
     layout:false});
 });
 
-app.get("/adminDashboard", checkLogin,checkAdmin ,function(req,res){
-  res.render('adminDashboard',{
-    user:req.session.user, 
-    layout:false});
-});
-
 app.get("/logout", (req,res)=>{
   req.session.reset(); 
   res.redirect("/");
@@ -207,27 +207,26 @@ app.get("/firstrunsetup", (req,res)=> {
 
 app.get("/createListings", checkLogin, checkAdmin,(req, res) => {
   // send the html view with our form to the client
-  res.render("createListings", {user:req.session.user , layout:false});
+  res.render("createListings", {user:req.session.user , layout:false});//also send phto and other data in listings 
 });
 
-app.post("/createListings", upload.single("photo"), (req, res) => {
+app.post("/addListings", checkLogin, checkAdmin, upload.single("photo"), (req, res) => {
   const locals = { 
     message: "Your photo was uploaded successfully",
     layout: false // do not use the default Layout (main.hbs)
   };
 
   const newRoom = new userRoom({
-    Listing_name: req.body.name,
+    roomName: req.body.name,
     price:req.body.price , 
-    email: req.body.email,
-    city:req.body.city,
-    description: req.body.desc,
-    filename: req.file.filename  
+    location:req.body.location,
+    description: req.body.description,
+    // filename: req.file.filename  
   });
 
   newRoom.save()
   .then((response) => {
-    res.render("dashboard", locals);
+    res.render("dashboard", locals); //noneed to send mesg ? 
   })
   .catch((err) => {
     locals.message = "There was an error uploading your photo";
@@ -303,7 +302,7 @@ app.post("/profile/edit",upload.none(), checkLogin, (req,res) => {
     const admin = (req.body.admin === "on");
     UserModel.updateOne(
         { email: OldEmail },//old email to find what to update
-        {$set: { // updating values    
+        {$set: { // updating values    | set opertator so as to not hget rid of addtional fields  not being updated 11/26 31m
         // admin: true,
         fname: firstName, 
         lname: lastName,
@@ -317,7 +316,7 @@ app.post("/profile/edit",upload.none(), checkLogin, (req,res) => {
         email: Email,
         // admin: true
     };
-    res.render("profile", {user: req.session.user, layout: false});
+    res.redirect("/profile");
     });
     
 });

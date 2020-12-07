@@ -4,19 +4,17 @@
 
 <body>
     <img src="Images/StayAnywhere Logo.jpg" alt="logo" class="logo1">
+    <h1>Welcome to StayAnywhere</h1>
 {{> nav}}      
 </div>
 
-
-<h1>Welcome to StayAnywhere</h1>
+{{#if  user.admin }}
+<a href="/createListings">Create a Listing</a> 
+{{/if}}>
 
 <h2 id="dashBoard"></h2>
-<p> {{user.fname}}</p>
-<p> {{user.lname}}</p>
-<p> {{user.email}}</p>
-<p> {{user.password}}</p>
+<p> Hello {{user.fname}}</p>
 
-<a href="/logout">Logout</a>  |     <a href="/">Home</a>
 
 {{> footer}}      
 

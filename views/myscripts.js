@@ -15,8 +15,8 @@ function validateFormEmail() {
     }
   }
   
-//Form Validation---REGISTRATION FORM 
-//making sure password and repeat password are the same 
+// Form Validation---REGISTRATION FORM 
+// making sure password and repeat password are the same 
 
 var password = document.getElementById("password")
 var confirm_password = document.getElementById("confirm_password");

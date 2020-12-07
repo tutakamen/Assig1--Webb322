@@ -6,20 +6,12 @@ const Schema = mongoose.Schema;
 mongoose.Promise = require("bluebird");
 
 // define the photo schema
-const photoSchema = new Schema({
-  "filename": {
-    type: String,
-    unique: true
-  },
-  "listing_name": String,
-  "email": String,
+const Room = new Schema({
+  "roomName": String,
   "price": String,
-  "city": String,
   "description": String,
-  "createdOn": {
-    type: Date,
-    default: Date.now
-  }
+  "location": String,
+
 });
 
-module.exports = mongoose.model("PhotoLibrary", photoSchema);
+module.exports = mongoose.model("roomLibrary", Room);
