@@ -93,8 +93,8 @@ function checkAdmin(req,res,next){  //use to check whetehr admin or not.
 app.engine(".hbs", exphbs({ extname: ".hbs" }));
 app.set("view engine", ".hbs");
 
-app.use(express.static("views"));
-app.use(express.static("public"));
+app.use(express.static("./views/"));
+app.use(express.static("./public/"));
 
       /* #endregion */
 
@@ -122,13 +122,34 @@ app.get("/search", function(req,res){
 
 //checkLogin 
 app.get("/Listings", function(req,res){
-  // var room  = userRoom.find()
-  // .lean()
-  // .exec()
-  // .then((room)=>{
-    res.render('Listings',{user:req.session.user ,layout:false});//add -> {room: room,hasRoom:!! room.lenght, user:req.session.user ,layout:false}
-  // });
+  userRoom.find()
+  .lean()
+  .exec()
+  .then((photos) => {
+   _.each(photos, (photo) => {
+      photo.uploadDate = new Date(photo.createdOn).toDateString();
+      //photo.caption = new String(photo.caption);
+    });
+  res.render('Listings',{photos: photos, hasPhotos: !!photos.length, user:req.session.user ,layout:false});
+  });
+
 });
+
+
+app.get("/editlistings", function(req,res){
+  userRoom.find()
+  .lean()
+  .exec()
+  .then((photos) => {
+   _.each(photos, (photo) => {
+      photo.uploadDate = new Date(photo.createdOn).toDateString();
+      //photo.caption = new String(photo.caption);
+    });
+  res.render('Listings',{photos: photos, hasPhotos: !!photos.length, user:req.session.user ,layout:false});
+  });
+
+});
+
 
 app.get("/login", function(req,res){
   res.render('login',{ layout:false});
@@ -221,18 +242,17 @@ app.post("/addListings", checkLogin, checkAdmin, upload.single("photo"), (req, r
     price:req.body.price , 
     location:req.body.location,
     description: req.body.description,
+    filename:req.file.filename
     // filename: req.file.filename  
   });
 
   newRoom.save()
   .then((response) => {
-    res.render("dashboard", locals); //noneed to send mesg ? 
+    res.render("dashboard", locals); 
   })
   .catch((err) => {
     locals.message = "There was an error uploading your photo";
-
     console.log(err);
-
     res.render("dashboard", locals);
   });
 });

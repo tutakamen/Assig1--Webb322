@@ -8,13 +8,32 @@
 
 
 <tbody>
+    {{#if hasPhotos }} {{#each photos}}
+    <div class="photo-tile">
+      <div>{{this.roomName}} ({{this.description}}) ({{this.price}}) </div>
+      <div>
+        <img src="/photos/{{filename}}" style="width:100%;" />
+      </div>
+      <div class="caption">Caption: {{this.location}}</div>
+      <div class="upload-date"><i>Uploaded: {{uploadDate}}</i></div>
+      {{!-- <div class="remove" title="Remove photo">
+        {{!-- <form action="/remove-photo/{{filename}}" method="post">
+          <button type="submit">
+            <img src="/images/trash_can.png" width="10"/>
+          </button> --}}
+        </form> --}}
+      </div>
+    </div>
+    {{/each}} {{else}}
+    <p>
+      You have no photos uploaded yet
+    </p>
+    
+        {{#if  user}}
+        <button> <a href="/editlistings">Log In</a></button>
+        {{/if }}
+    {{/if}}
 
-  {{#each room}} 
-  {{roomName}}
-  {{price}}
-  {{description}}
-  {{location}}
-  {{/each }} 
 
 
 </tbody>

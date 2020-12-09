@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> header}}      
+
+<body>
+    <img src="Images/StayAnywhere Logo.jpg" alt="logo" class="logo1">
+{{> nav}}      
+
+
+<tbody>
+    {{#if hasPhotos }} {{#each photos}}
+    <div><img src="/photos/{{filename}}" style="width:25" > </div>
+    {{/each}} {{else}}
+    <p>
+      You have no photos uploaded yet
+    </p>
+        {{/if}}
+
+</tbody>
+
+{{> footer}}      
+
+</body>
+
+</html>
+
