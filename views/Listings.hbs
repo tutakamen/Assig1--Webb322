@@ -6,9 +6,41 @@
     <img src="Images/StayAnywhere Logo.jpg" alt="logo" class="logo1">
 {{> nav}}      
 
+<p>Search via Locaton</p> 
+{{!-- 
+Add form with 3 radio  buttons, 
+Create a Listinsg POST method, 
+search mongo via selction, 
+then resend ,
+VALIDTION ? -Whatevfer
+ --}}
+
+<form action="/Listings" method="POST" enctype="multipart/form-data">
+
+  <input type="radio" id="TORONTO" name="LOCATION" value="TORONTO">
+  <label for="TORONTO">TORONTO</label><br>
+  <input type="radio" id="PARIS" name="LOCATION" value="PARIS">
+  <label for="PARIS">PARIS</label><br>
+  <input type="radio" id="LONDON" name="LOCATION" value="LONDON">
+  <label for="LONDON">LONDON</label>
+  <input type="submit" value="Confirm Search" />
+
+</form>
+
+
+{{!-- <form action="/editItem/{{filename}}" method="POST">
+
+Try 
+1-use another way to search e.g with roomname 
+
+
+ --}}
+
 
 <tbody>
     {{#if hasPhotos }} {{#each photos}}
+    <form action="/details/{{filename}}" method="POST" enctype="multipart/form-data"> 
+
     <div class="photo-tile">
       <div>{{this.roomName}} ({{this.description}}) ({{this.price}}) </div>
       <div>
@@ -16,19 +48,16 @@
       </div>
       <div class="caption">Caption: {{this.location}}</div>
       <div class="upload-date"><i>Uploaded: {{uploadDate}}</i></div>
-      {{!-- <div class="remove" title="Remove photo">
-        {{!-- <form action="/remove-photo/{{filename}}" method="post">
-          <button type="submit">
-            <img src="/images/trash_can.png" width="10"/>
-          </button> --}}
-        </form> --}}
+
+       <input type="submit" value="Confirm Edit" /> 
+
       </div>
     </div>
     {{/each}} {{else}}
     <p>
       You have no photos uploaded yet
     </p>
-    
+
         {{#if  user}}
         <button> <a href="/editlistings">Log In</a></button>
         {{/if }}

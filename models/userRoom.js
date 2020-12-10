@@ -12,7 +12,10 @@ const Room = new Schema({
     unique: true
   },
 
-  "roomName": String,
+  "roomName": {
+    type: String,
+    unique: true
+  }, 
   "price": String,
   "description": String,
   "location": String,

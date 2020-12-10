@@ -4,23 +4,57 @@
 
 <body>
     <img src="Images/StayAnywhere Logo.jpg" alt="logo" class="logo1">
-{{> nav}}      
+{{> nav}}    
 
 
-<tbody>
-    {{#if hasPhotos }} {{#each photos}}
-    <div><img src="/photos/{{filename}}" style="width:25" > </div>
-    {{/each}} {{else}}
-    <p>
-      You have no photos uploaded yet
-    </p>
-        {{/if}}
+  <p>The id is --->value= "{{user.cookieName}}"</p>
 
-</tbody>
+            <table border='1'>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Room Title</th>
+                    <th>price</th>
+                    <th>Description</th>
+                    <th>Location</th>
+                    <th>Photo</th>
+                    <th>Replace Photo</th>
+                    <th>Delete Listing</th>
+                    <th>Confirm changes</th>
+                </tr>
+                </thead>
+                <tbody>
+                     {{#if hasPhotos }} {{#each photos}}
+                    <tr>
+                        <p>The id is ---> {{photos.roomName}}</p>
+                        <form action="/editlistings" method="POST" enctype="multipart/form-data">
+                        <div class="edit" title="editItem">
+                            <td><input type="hidden" name="fname" value="{{this.roomName}}"/></td>
+                            <td><input type="text" name="name" value="{{this.roomName}}"/></td>
+                            <td><input type="text" name="price" value="{{this.price}}"/></td>
+                            <td><input type="text" name="description" value="{{this.description}}"/></td>
+                            <td><input type="text" name="location" value="{{this.location}}"/></td>
+                            <td><img src="/photos/{{filename}}" style="width:50%;" /></td>
+                            <td><input id="photo" name="photo" type="file" /></td>
+                            <td><a href="/listings/Delete/{{_id}}">Delete</a></td>
+                            <td> <input type="submit" value="Confirm Edit" /> </td>
+                         </form>
+                    </tr>
+                 </div>
+                    {{/each}}{{/if}}
+                </tbody>
+            </table>
 
-{{> footer}}      
+
+{{@index}}
 
 </body>
+{{> footer}}      
 
 </html>
 
+
+
+
+
+                        {{!-- <form action="/editItem/{{filename}}" method="POST"> --}}

@@ -136,8 +136,30 @@ app.get("/Listings", function(req,res){
 });
 
 
-app.get("/editlistings", function(req,res){
-  userRoom.find()
+app.post("/details/{{filename}", upload.none(),function(req,res){ 
+
+  console.log("hey therev " + req.bodyfilename); 
+
+  userRoom.find({filename: req.body.filename})
+  .lean()
+  .exec()
+  .then((photos) => {
+   _.each(photos, (photo) => {
+      photo.uploadDate = new Date(photo.createdOn).toDateString();
+      //photo.caption = new String(photo.caption);
+    });
+  res.render('Listings',{photos: photos, hasPhotos: !!photos.length, user:req.session.user ,layout:false});
+  });
+
+
+});
+
+
+app.post("/Listings", upload.none(),function(req,res){  
+   
+  console.log("req.body.location  ---> " + req.body.LOCATION);
+
+  userRoom.find({location: req.body.LOCATION})
   .lean()
   .exec()
   .then((photos) => {
@@ -150,7 +172,80 @@ app.get("/editlistings", function(req,res){
 
 });
 
+app.get("/editlistings", checkAdmin,checkLogin, function(req,res){
+  userRoom.find()
+  .lean()
+  .exec()
+  .then((photos) => {
+   _.each(photos, (photo) => {
+      photo.uploadDate = new Date(photo.createdOn).toDateString();
+      //photo.caption = new String(photo.caption);
+    });
+  res.render('editlistings',{photos: photos, hasPhotos: !!photos.length, user:req.session.user ,layout:false});
+  });
 
+});
+
+app.post("/editlistings" ,upload.single("photo"), checkAdmin,checkLogin,function(req,res){
+
+  const fname = req.body.fname;
+  const Name = req.body.name;
+  const Price = req.body.price;
+  const Description = req.body.description;
+  const Location = req.body.location;
+    
+  const locals = { 
+    message: "Your photo was uploaded successfully",
+    layout: false // do not use the default Layout (main.hbs)
+  };
+  
+    if (!!req.file) {
+      userRoom.remove(
+        {roomName: fname},
+        {$set: {
+          roomName: Name,
+          price:Price , 
+          location:Location,
+          description: Description,
+        }}
+        ).exec()
+  
+    console.log("here ") ; 
+  
+        const newRoom = new userRoom({
+            roomName: req.body.name,
+            price:req.body.price , 
+            location:req.body.location,
+            description: req.body.description,
+            filename:req.file.filename
+          });
+        
+          newRoom.save()
+          .then((response) => {
+            res.render("dashboard", locals); 
+          })
+          .catch((err) => {
+            locals.message = "There was an error uploading your photo";
+            console.log(err);
+            res.redirect("dashboard");
+          });
+    
+    }else{
+        userRoom.updateOne(
+            {roomName: fname},
+            {$set: {
+              roomName: Name,
+              price:Price , 
+              location:Location,
+              description: Description,
+            }}
+            ).exec()
+            .then(()=>{
+              res.redirect("/dashboard");
+            });
+    } 
+  });
+  
 app.get("/login", function(req,res){
   res.render('login',{ layout:false});
 });
@@ -231,7 +326,7 @@ app.get("/createListings", checkLogin, checkAdmin,(req, res) => {
   res.render("createListings", {user:req.session.user , layout:false});//also send phto and other data in listings 
 });
 
-app.post("/addListings", checkLogin, checkAdmin, upload.single("photo"), (req, res) => {
+app.post("/addListings",upload.single("photo"), checkLogin, checkAdmin,  (req, res) => {
   const locals = { 
     message: "Your photo was uploaded successfully",
     layout: false // do not use the default Layout (main.hbs)

@@ -47,7 +47,7 @@
                         
                         /* Add a color to the active/current link */
                         .topnav a.active {
-                          background-color: #4CAF50;
+                          background-color: #022e04;
                           color: white;
                         }
 
@@ -187,7 +187,7 @@
                         
 
                         form{
-                      color: rgba(19, 73, 2, 0.801);
+                      color: rgba(49, 1, 17, 0.801);
 
                         }
 
@@ -381,7 +381,7 @@
           
           /* Add a color to the active/current link */
           .topnav a.active {
-            background-color: #4CAF50;
+            background-color: #003d02;
             color: white;
           }
 
@@ -525,7 +525,7 @@
           
 
           form{
-        color: rgba(19, 73, 2, 0.801);
+            color: rgba(49, 1, 17, 0.801);
 
           }
 
@@ -597,7 +597,7 @@
         .modal-content {
           background-color: #fefefe;
           margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-          border: 1px solid rgb(63, 190, 221);
+          border: 1px solid rgb(5, 55, 68);
           width: 80%; /* Could be more or less, depending on screen size */
         }
 
@@ -677,7 +677,7 @@
               font-family:Georgia, Arial, Helvetica, Sans-serif,serif;
               font-size:15px;
               color:#000;
-              background:rgb(48, 95, 114);
+              background:rgb(8, 61, 82);
               margin: 0;
               font-weight: 300;
           }
@@ -720,7 +720,7 @@
             
             /* Add a color to the active/current link */
             .topnav a.active {
-              background-color: #4CAF50;
+              background-color: #0d5310;
               color: white;
             }
 
@@ -863,7 +863,7 @@
             
 
             form{
-          color: rgba(19, 73, 2, 0.801);
+              color: rgba(49, 1, 17, 0.801);
 
             }
 
