@@ -20,6 +20,7 @@ const userRoom = require("./models/userRoom");
 var  Schema  = mongoose.Schema  ; 
 var UserModel = require("./models/userModel"); 
 const { has } = require("underscore");
+var UserBooking = require("./models/bookingModel"); 
 
 /* #endregion */
 
@@ -138,7 +139,7 @@ app.get("/Listings", function(req,res){
 
 //this on listings page 
 app.get("/details/:roomName", upload.none(),function(req,res){ 
-  ROOM: req.params.roomName
+  ROOM: req.params.roomName ; 
   console.log("hey there 1 " + req.params.roomName); 
 
   userRoom.findOne({roomName: req.params.roomName})
@@ -148,13 +149,125 @@ app.get("/details/:roomName", upload.none(),function(req,res){
     _.each(photos, (photo) => {
       photo.uploadDate = new Date(photo.createdOn).toDateString();
     });
-      res.render('detailedListing',{photos: photos, user:req.session.user ,layout:false});
+      res.render('detailedListing',{photos: photos,hasPhotos: !!photos.length,  user:req.session.user ,layout:false});
     });
   });
 
 app.get("/detailedListing", function(req,res){
   res.render('detailedListing',{user:req.session.user ,layout:false});
 });
+
+
+
+app.post("/bookingRoom",upload.none(), checkLogin, function(req,res){
+
+  const locals = { 
+    message: " successfully",
+    layout: false // do not use the default Layout (main.hbs)
+  };
+
+  const Roomname = req.body.listingRoomName; // listing unique 
+  const Email = req.body.UserEmail;// user unique
+  const Guests = req.body.guestsnumber;
+
+  var startDate = new Date(req.body.tripstart);
+  var endDate = new Date(req.body.tripend);
+  var days =  parseInt((endDate - startDate) / (24 * 3600 * 1000));
+  const totalPrice = req.body.priceanight *days;
+
+console.log("price " + (totalPrice)  ) ; 
+
+                        var mailOptions =  {
+                          from: 'webb322assigment2@gmail.com',
+                          to: Email ,    
+                          subject: 'Thanks for Booking !', //use br ? its html
+                          html: `Hello, Thanks for Booking! `
+                        }
+
+                        transporter.sendMail(mailOptions,(error,info) =>{
+                            if(error){
+                            console.log("ERROR: "+ error);
+                            }else{
+                              console.log("Email sent: " +info.response ); 
+                            }
+                          }); 
+
+  const newRoom = new UserBooking({
+    checkIn: startDate,
+    checkOut:endDate , 
+    guests:Guests,
+    listingRoomName: Roomname,
+    userEmail:Email
+  });
+
+  newRoom.save()
+  .then((response) => {
+    res.render("dashboard",locals); 
+  })
+  .catch((err) => {
+    console.log(err);
+    res.render("dashboard",locals);
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -6,36 +6,34 @@
     <img src="/Images/StayAnywhere Logo.jpg" alt="logo" class="logo1">
 {{> nav}}      
 
-<p>Search via Locaton</p> 
 
-      <div>
-        <img src="/photos/{{photos.filename}}" style="width:100%;" />
-      </div>
-
-      <div>Room Name xxxxxxxxxx{{photos.roomName}}  </div>
+   <img src="/photos/{{photos.filename}}" style="width:90%;" />
+        
+      <div>Room Name : {{photos.roomName}}  </div>
       <div>Deccription {{photos.description}}  </div>
       <div>Price {{photos.price}}  </div>
       <div Location: {{photos.location}}</div>
+      <td><a href="/details/{{roomName}}">More Details</a></td>
 
-<form class="modal-content" action="/action_page.php">
-  <div class="container">      
+
+<p>{{locals.message}}</p>
+<form class="modal-content" action="/bookingRoom" method="POST" enctype="multipart/form-data">
+<td><input type="hidden" name="listingRoomName" value="{{photos.roomName}}"/></td>
+<td><input type="hidden" name="UserEmail" value="{{user.email}}"/></td>
+<td><input type="hidden" name="priceanight" value="{{photos.price}}"/></td>
+
+
     <label for="start">Start date:</label>
-    <input type="date" id="start" name="trip-start" min="2020-10-08" max="2021-12-31">
-
+    <input type="date" id="start" name="tripstart" min="2020-10-08" max="2021-12-31">
 
     <label for="end">End date:</label>
-    <input type="date" id="end" name="trip-start" min="2020-10-08" max="2021-12-31">
+    <input type="date" id="end" name="tripend" min="2020-10-08" max="2021-12-31">
 
     <label for="guests1">Number of guests:</label>
     <input type="number" id="guests" name="guestsnumber" min="1" max="13">
 
-    <label for="cities"> Location:</label>
-    <select id="cities" name="cities">
-        <option value="Toronto">Toronto</option>
-        <option value="Calgary">Calgary</option>
-        <option value="Montreal">Montreal</option>
-        <option value="Port Perry">Port Perry</option>
-    </select>
+      <input type="submit" value="Book" />
+
   </div>
 </form>
 </div>
