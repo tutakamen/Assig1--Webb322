@@ -161,11 +161,6 @@ app.get("/detailedListing", function(req,res){
 
 app.post("/bookingRoom",upload.none(), checkLogin, function(req,res){
 
-  const locals = { 
-    message: " successfully",
-    layout: false // do not use the default Layout (main.hbs)
-  };
-
   const Roomname = req.body.listingRoomName; // listing unique 
   const Email = req.body.UserEmail;// user unique
   const Guests = req.body.guestsnumber;
@@ -175,13 +170,15 @@ app.post("/bookingRoom",upload.none(), checkLogin, function(req,res){
   var days =  parseInt((endDate - startDate) / (24 * 3600 * 1000));
   const totalPrice = req.body.priceanight *days;
 
+
+
 console.log("price " + (totalPrice)  ) ; 
 
                         var mailOptions =  {
                           from: 'webb322assigment2@gmail.com',
                           to: Email ,    
                           subject: 'Thanks for Booking !', //use br ? its html
-                          html: `Hello, Thanks for Booking! `
+                          html: 'Hello, Your booking details can be viewed on your StayAnywhere dashboard.'
                         }
 
                         transporter.sendMail(mailOptions,(error,info) =>{
@@ -192,6 +189,7 @@ console.log("price " + (totalPrice)  ) ;
                             }
                           }); 
 
+                   
   const newRoom = new UserBooking({
     checkIn: startDate,
     checkOut:endDate , 
@@ -199,6 +197,15 @@ console.log("price " + (totalPrice)  ) ;
     listingRoomName: Roomname,
     userEmail:Email
   });
+
+
+  const locals = { //put variables in here , send to dashboard
+    message: " Congrtulations on a successfull booking",
+    layout: false ,
+    data:newRoom  
+  };
+
+
 
   newRoom.save()
   .then((response) => {
