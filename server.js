@@ -117,10 +117,6 @@ app.get("/about", (req,res) => {
   res.render('about',{user:req.session.user , layout:false}); 
 });
 
-app.get("/search", function(req,res){
-  res.render('search',{user:req.session.user ,layout:false});
-});
-
 //checkLogin 
 app.get("/Listings", function(req,res){
   userRoom.find()
@@ -161,11 +157,6 @@ app.get("/detailedListing", function(req,res){
 
 app.post("/bookingRoom",upload.none(), checkLogin, function(req,res){
 
-  const locals = { 
-    message: " successfully",
-    layout: false // do not use the default Layout (main.hbs)
-  };
-
   const Roomname = req.body.listingRoomName; // listing unique 
   const Email = req.body.UserEmail;// user unique
   const Guests = req.body.guestsnumber;
@@ -197,17 +188,21 @@ console.log("price " + (totalPrice)  ) ;
     checkIn: startDate,
     checkOut:endDate , 
     guests:Guests,
+    NumberofDays: days , 
+    Price :totalPrice,
     listingRoomName: Roomname,
     userEmail:Email
   });
 
+  const locals =newRoom.toObject(); 
+
   newRoom.save()
   .then((response) => {
-    res.render("dashboard",locals); 
+    res.render("dashboard",{locals,  user:req.session.user ,layout:false}); 
   })
   .catch((err) => {
     console.log(err);
-    res.render("dashboard",locals);
+    res.render("dashboard",{locals,  user:req.session.user ,layout:false}); 
   });
 });
 
