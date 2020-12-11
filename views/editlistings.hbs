@@ -7,7 +7,6 @@
 {{> nav}}    
 
 
-  <p>The id is --->value= "{{user.cookieName}}"</p>
 
             <table border='1'>
                 <thead>
@@ -26,7 +25,6 @@
                 <tbody>
                      {{#if hasPhotos }} {{#each photos}}
                     <tr>
-                        <p>The id is ---> {{photos.roomName}}</p>
                         <form action="/editlistings" method="POST" enctype="multipart/form-data">
                         <div class="edit" title="editItem">
                             <td><input type="hidden" name="fname" value="{{this.roomName}}"/></td>
@@ -36,7 +34,8 @@
                             <td><input type="text" name="location" value="{{this.location}}"/></td>
                             <td><img src="/photos/{{filename}}" style="width:50%;" /></td>
                             <td><input id="photo" name="photo" type="file" /></td>
-                            <td><a href="/listings/Delete/{{_id}}">Delete</a></td>
+                            {{!-- <td><a href="/listings/Delete/{{roomName}}">Delete</a></td> --}}
+                            <td><a href="/listings/Delete/{{roomName}}">Delete</a></td>
                             <td> <input type="submit" value="Confirm Edit" /> </td>
                          </form>
                     </tr>
@@ -46,7 +45,7 @@
             </table>
 
 
-{{@index}}
+
 
 </body>
 {{> footer}}      

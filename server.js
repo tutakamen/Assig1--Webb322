@@ -136,23 +136,27 @@ app.get("/Listings", function(req,res){
 });
 
 
-app.post("/details/{{filename}", upload.none(),function(req,res){ 
+//this on listings page 
+app.get("/details/:roomName", upload.none(),function(req,res){ 
+  ROOM: req.params.roomName
+  console.log("hey there 1 " + req.params.roomName); 
 
-  console.log("hey therev " + req.bodyfilename); 
-
-  userRoom.find({filename: req.body.filename})
+  userRoom.findOne({roomName: req.params.roomName})
   .lean()
   .exec()
   .then((photos) => {
-   _.each(photos, (photo) => {
+    _.each(photos, (photo) => {
       photo.uploadDate = new Date(photo.createdOn).toDateString();
-      //photo.caption = new String(photo.caption);
     });
-  res.render('Listings',{photos: photos, hasPhotos: !!photos.length, user:req.session.user ,layout:false});
+      res.render('detailedListing',{photos: photos, user:req.session.user ,layout:false});
+    });
   });
 
-
+app.get("/detailedListing", function(req,res){
+  res.render('detailedListing',{user:req.session.user ,layout:false});
 });
+
+
 
 
 app.post("/Listings", upload.none(),function(req,res){  
@@ -179,7 +183,6 @@ app.get("/editlistings", checkAdmin,checkLogin, function(req,res){
   .then((photos) => {
    _.each(photos, (photo) => {
       photo.uploadDate = new Date(photo.createdOn).toDateString();
-      //photo.caption = new String(photo.caption);
     });
   res.render('editlistings',{photos: photos, hasPhotos: !!photos.length, user:req.session.user ,layout:false});
   });
@@ -245,7 +248,17 @@ app.post("/editlistings" ,upload.single("photo"), checkAdmin,checkLogin,function
             });
     } 
   });
-  
+
+app.get("/listings/Delete/:roomName" ,upload.none(), checkAdmin,checkLogin,function(req,res){
+  const name = req.params.roomName;
+  console.log("req.params.roomName --->> " + req.params.roomName); 
+
+  userRoom.deleteOne({roomName: name})
+      .then(()=>{
+          res.redirect("/editlistings");
+      });
+})
+
 app.get("/login", function(req,res){
   res.render('login',{ layout:false});
 });

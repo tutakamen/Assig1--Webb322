@@ -7,16 +7,7 @@
 {{> nav}}      
 
 <p>Search via Locaton</p> 
-{{!-- 
-Add form with 3 radio  buttons, 
-Create a Listinsg POST method, 
-search mongo via selction, 
-then resend ,
-VALIDTION ? -Whatevfer
- --}}
-
 <form action="/Listings" method="POST" enctype="multipart/form-data">
-
   <input type="radio" id="TORONTO" name="LOCATION" value="TORONTO">
   <label for="TORONTO">TORONTO</label><br>
   <input type="radio" id="PARIS" name="LOCATION" value="PARIS">
@@ -24,47 +15,24 @@ VALIDTION ? -Whatevfer
   <input type="radio" id="LONDON" name="LOCATION" value="LONDON">
   <label for="LONDON">LONDON</label>
   <input type="submit" value="Confirm Search" />
-
 </form>
-
-
-{{!-- <form action="/editItem/{{filename}}" method="POST">
-
-Try 
-1-use another way to search e.g with roomname 
-
-
- --}}
 
 
 <tbody>
     {{#if hasPhotos }} {{#each photos}}
-    <form action="/details/{{filename}}" method="POST" enctype="multipart/form-data"> 
-
-    <div class="photo-tile">
-      <div>{{this.roomName}} ({{this.description}}) ({{this.price}}) </div>
       <div>
-        <img src="/photos/{{filename}}" style="width:100%;" />
+        <img src="/photos/{{filename}}" style="width:90%;" />
       </div>
-      <div class="caption">Caption: {{this.location}}</div>
-      <div class="upload-date"><i>Uploaded: {{uploadDate}}</i></div>
-
-       <input type="submit" value="Confirm Edit" /> 
-
-      </div>
-    </div>
+      <div>Room Name {{this.roomName}}  </div>
+      <div>Deccription {{this.description}}  </div>
+      <div>Price {{this.price}}  </div>
+      <div Location: {{this.location}}</div>
+      <td><a href="/details/{{roomName}}">More Details</a></td>
     {{/each}} {{else}}
     <p>
       You have no photos uploaded yet
     </p>
-
-        {{#if  user}}
-        <button> <a href="/editlistings">Log In</a></button>
-        {{/if }}
     {{/if}}
-
-
-
 </tbody>
 
 {{> footer}}      
@@ -74,17 +42,3 @@ Try
 </html>
 
 
-
-
-
-
-{{!-- <section>
-    <div class="grid">
-      <div class="grid-item"><img src="Images/pexels-binyamin-mellish-1396132.jpg" alt="cant see" class="logo" > <p>Quebec City-$200/night </p></div>
-      <div class="grid-item"><img src="Images/pexels-eberhard-grossgasteiger-730981.jpg" alt="cant see"  ><p>Edmonton -$220/night </p></div>
-      <div class="grid-item"><img src="Images/pexels-frans-van-heerden-632522.jpg" alt="cant see" >  <p>Vancouver -$320/night </p></div>
-      <div class="grid-item"><img src="Images/pexels-pixabay-314937.jpg" alt="cant see" ><p>Saskatoon -$300/night </p></div>
-      <div class="grid-item"><img src="Images/pexels-mike-463996.jpg" alt="cant see" ><p>Toronto -$130/night </p></div>
-      <div class="grid-item"><img src="Images/pexels-skitterphoto-794.jpg" alt="cant see" ><p>Halifax -$420/night </p></div>
-    </div>
-</section> --}}
