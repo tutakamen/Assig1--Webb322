@@ -16,6 +16,13 @@
 <h2 id="dashBoard"></h2>
 <p> Hello {{user.fname}}</p>
 
+{{#if  locals }}
+<p>Booking Details </p>
+<p>Where {{locals.listingRoomName}} </p>
+<p>Number of days: {{this.locals.listingRoomName}} </p>
+<p>Number of Guests  {{locals.guests}} </p>
+<p>Cost  {{locals.Price}} </p>
+{{/if}}>
 
 {{> footer}}      
 

@@ -164,7 +164,6 @@ app.post("/bookingRoom",upload.none(), checkLogin, function(req,res){
   const Roomname = req.body.listingRoomName; // listing unique 
   const Email = req.body.UserEmail;// user unique
   const Guests = req.body.guestsnumber;
-
   var startDate = new Date(req.body.tripstart);
   var endDate = new Date(req.body.tripend);
   var days =  parseInt((endDate - startDate) / (24 * 3600 * 1000));
@@ -190,31 +189,28 @@ console.log("price " + (totalPrice)  ) ;
                           }); 
 
                    
-  const newRoom = new UserBooking({
+  const newBooking = new UserBooking({
     checkIn: startDate,
-    checkOut:endDate , 
+    checkOut:endDate ,
+    NumberofDays: days,
+    Price: totalPrice,
     guests:Guests,
     listingRoomName: Roomname,
     userEmail:Email
   });
 
 
-  const locals = { //put variables in here , send to dashboard
-    message: " Congrtulations on a successfull booking",
-    layout: false ,
-    data:newRoom  
-  };
-
-
-
-  newRoom.save()
+  let locals =newBooking.toObject()  ; //cannot use .lean on a save() is it isnt a  query, so using toObject  
+ 
+newBooking.save()
   .then((response) => {
-    res.render("dashboard",locals); 
+    res.render("dashboard",{locals:locals,user:req.session.user,layout:false});
   })
   .catch((err) => {
     console.log(err);
-    res.render("dashboard",locals);
+    res.render("dashboard",{locals:locals,user:req.session.user,layout:false});
   });
+
 });
 
 
