@@ -103,7 +103,7 @@ app.use(express.static("./public/"));
 
 app.use(clientSessions({
   cookieName: "session",
-  secret: "web322_week9_sessionDemo",   //must put this in .env file !!!
+  secret: "web322_week9_sessionDemo",  
   duration: 20*60*1000, 
   activeDuration: 1000*60
 })); 
@@ -161,15 +161,19 @@ app.get("/detailedListing", function(req,res){
 
 app.post("/bookingRoom",upload.none(), checkLogin, function(req,res){
 
+  const locals = { 
+    message: " successfully",
+    layout: false // do not use the default Layout (main.hbs)
+  };
+
   const Roomname = req.body.listingRoomName; // listing unique 
   const Email = req.body.UserEmail;// user unique
   const Guests = req.body.guestsnumber;
+
   var startDate = new Date(req.body.tripstart);
   var endDate = new Date(req.body.tripend);
   var days =  parseInt((endDate - startDate) / (24 * 3600 * 1000));
   const totalPrice = req.body.priceanight *days;
-
-
 
 console.log("price " + (totalPrice)  ) ; 
 
@@ -177,7 +181,7 @@ console.log("price " + (totalPrice)  ) ;
                           from: 'webb322assigment2@gmail.com',
                           to: Email ,    
                           subject: 'Thanks for Booking !', //use br ? its html
-                          html: 'Hello, Your booking details can be viewed on your StayAnywhere dashboard.'
+                          html: `Hello, Thanks for Booking! `
                         }
 
                         transporter.sendMail(mailOptions,(error,info) =>{
@@ -188,29 +192,23 @@ console.log("price " + (totalPrice)  ) ;
                             }
                           }); 
 
-                   
-  const newBooking = new UserBooking({
+                        
+  const newRoom = new UserBooking({
     checkIn: startDate,
-    checkOut:endDate ,
-    NumberofDays: days,
-    Price: totalPrice,
+    checkOut:endDate , 
     guests:Guests,
     listingRoomName: Roomname,
     userEmail:Email
   });
 
-
-  let locals =newBooking.toObject()  ; //cannot use .lean on a save() is it isnt a  query, so using toObject  
- 
-newBooking.save()
+  newRoom.save()
   .then((response) => {
-    res.render("dashboard",{locals:locals,user:req.session.user,layout:false});
+    res.render("dashboard",locals); 
   })
   .catch((err) => {
     console.log(err);
-    res.render("dashboard",{locals:locals,user:req.session.user,layout:false});
+    res.render("dashboard",locals);
   });
-
 });
 
 
