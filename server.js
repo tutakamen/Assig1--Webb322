@@ -13,9 +13,7 @@ require('dotenv').config()
 const bcrypt = require('bcryptjs');
 const _ = require ("underscore"); 
 const fs = require("fs"); 
-
 const PHOTODIRECTORY = "./public/photos/";
-
 const userRoom = require("./models/userRoom");
 var  Schema  = mongoose.Schema  ; 
 var UserModel = require("./models/userModel"); 
@@ -132,7 +130,6 @@ app.get("/Listings", function(req,res){
 
 });
 
-
 //this on listings page 
 app.get("/details/:roomName", upload.none(),function(req,res){ 
   ROOM: req.params.roomName ; 
@@ -152,8 +149,6 @@ app.get("/details/:roomName", upload.none(),function(req,res){
 app.get("/detailedListing", function(req,res){
   res.render('detailedListing',{user:req.session.user ,layout:false});
 });
-
-
 
 app.post("/bookingRoom",upload.none(), checkLogin, function(req,res){
 
@@ -205,68 +200,6 @@ console.log("price " + (totalPrice)  ) ;
     res.render("dashboard",{locals,  user:req.session.user ,layout:false}); 
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.post("/Listings", upload.none(),function(req,res){  
    
@@ -376,7 +309,7 @@ app.post("/login",upload.none(), (req,res)=>{
   
   const email =  req.body.email ; 
   const password =  req.body.password ; 
-  //serverside validation
+  //serverside validation, see also myscripts.js
   if(email===""|| password === ""){
     return res.render("login",{ errorMsg: "Somethings missing, or put in incorrectly" , layout:false });  //already done this on hbs page
   }
